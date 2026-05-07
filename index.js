@@ -1,42 +1,53 @@
 import { searchNews } from './src/agents/scout.js';
 import { generateArticle } from './src/agents/architect.js';
+import { deploy } from './src/agents/publisher.js';
 import fs from 'fs';
+import path from 'path';
 
-async function runPipeline() {
-	// 1. On cherche
-	const newsList = await searchNews('Dernières innovations IA 2026');
+async function main() {
+	try {
+		// 1. SCAN : Trouver des news
+		// On peut varier le sujet dynamiquement
+		const topics = ['IA générative', 'Cybersécurité 2026', 'Web Développeur'];
+		const randomTopic = topics[Math.floor(Math.random() * topics.length)];
 
-	if (newsList.length === 0) return;
+		const news = await searchNews(randomTopic);
+		if (!news || news.length === 0) {
+			console.log('Empty news, stopping...');
+			return;
+		}
 
-	// 2. On prend la meilleure news (ou on boucle sur la liste)
-	const bestNews = newsList[0];
-	const finalArticle = await generateArticle(bestNews);
+		// 2. WRITE : Générer l'article (On prend le premier résultat)
+		const article = await generateArticle(news[0]);
+		if (!article) return;
 
-	if (finalArticle) {
-		// 3. On sauvegarde en Markdown pour Astro
-		const fileName = `./src/content/blog/${finalArticle.slug}.md`;
+		// 3. SAVE : Écrire le fichier dans le dossier Astro
+		const blogDir = './src/content/blog';
+		if (!fs.existsSync(blogDir)) fs.mkdirSync(blogDir, { recursive: true });
 
-		const fileContent = `---
-title: "${finalArticle.title}"
-pubDate: ${finalArticle.date}
-description: "Analyse sur : ${finalArticle.title}"
+		const fileName = `${article.slug}.md`;
+		const filePath = path.join(blogDir, fileName);
+
+		const content = `---
+title: "${article.title}"
+pubDate: "${new Date().toISOString()}"
+description: "Analyse experte sur ${article.title}"
 ---
 
-${finalArticle.body}
+${article.body}
 
 ---
-*Source originale : [Consulter l'article](${bestNews.url})*
+*Source: ${news[0].url}*
 `;
 
-		fs.writeFileSync(fileName, fileContent);
-		console.log(`🚀 Article généré avec succès : ${fileName}`);
+		fs.writeFileSync(filePath, content);
+		console.log(`📝 Article sauvegardé : ${fileName}`);
+
+		// 4. DEPLOY : Envoyer sur GitHub
+		await deploy();
+	} catch (error) {
+		console.error('💀 Pipeline crash:', error);
 	}
 }
 
-runPipeline();
-
-
-
-
-
-//kjk
+main();
