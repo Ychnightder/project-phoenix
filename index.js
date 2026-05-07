@@ -43,6 +43,9 @@ ${article.body}
 
 		fs.writeFileSync(filePath, content);
 		console.log(`📝 Article sauvegardé avec image : ${fileName}`);
+
+		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
+		deploy();
 	} catch (error) {
 		console.error('💀 Pipeline crash:', error);
 	}
