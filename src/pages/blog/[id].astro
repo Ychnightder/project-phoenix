@@ -14,7 +14,11 @@ const { post } = Astro.props; //
 const { Content } = await render(post); //
 ---
 
-<Layout title={post.data.title}>
+<Layout title={post.data.title} 
+	description={post.data.description} 
+	image={post.data.heroImage}
+	articleDate={post.data.pubDate}>
+
 	<article class="max-w-[680px] mx-auto pt-10 px-6">
 		
 		
@@ -54,11 +58,12 @@ const { Content } = await render(post); //
 			</div>
 		</header>
 
-		<div class="prose prose-lg prose-slate max-w-none 
+		<div class="prose prose-indigo prose-lg max-w-none
 			font-['Source_Serif_4'] leading-[1.8] text-[#242424]
 			prose-headings:font-bold prose-headings:font-['Inter'] prose-headings:tracking-tight
 			prose-p:mb-8 prose-p:text-[20px] prose-p:leading-8
 			prose-strong:font-bold prose-blockquote:border-l-black prose-blockquote:italic">
-			<Content /> </div>
+			<Content /> 
+		</div>
 	</article>
 </Layout>
