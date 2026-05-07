@@ -48,11 +48,13 @@ const categories = ["Tous", ...topics];
 
 
         <div class="aspect-video mb-4 overflow-hidden bg-gray-100 rounded-sm">
+   {post.data.heroImage && (
     <img 
-      src={`https://source.unsplash.com/featured/?${post.data.category}`} 
-      alt={post.data.title}
-      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        src={post.data.heroImage} 
+        alt={post.data.title} 
+        class="w-full aspect-video object-cover rounded-xl mb-10 shadow-lg" 
     />
+)}
   </div>
         <div class="flex items-center gap-2 mb-2">
           <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-600">

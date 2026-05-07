@@ -10,9 +10,9 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
+
 export async function generateArticle(newsData) {
 	const { title, content, url, category } = newsData;
-
 	console.log(`🧠 Génération de l'article pour : ${title}...`);
 
 	const prompt = `
@@ -29,19 +29,26 @@ export async function generateArticle(newsData) {
         4. Inclus une conclusion qui incite à la réflexion.
         5. Ne commence JAMAIS par "Voici un article" ou "En tant qu'IA". Entre directement dans le vif du sujet.
         6. Optimise le texte pour le SEO.
+        7. À la toute fin, ajoute EXACTEMENT cette balise avec 3 mots-clés en anglais séparés par des virgules :
+           KEYWORDS: [keyword1, keyword2, keyword3]
     `;
 
 	try {
 		const chatCompletion = await groq.chat.completions.create({
 			messages: [{ role: 'user', content: prompt }],
-			model: 'llama-3.3-70b-versatile', 
+			model: 'llama-3.3-70b-versatile',
 			temperature: 0.7,
 		});
 
-		let articleBody = chatCompletion.choices[0]?.message?.content || '';
+		let rawContent = chatCompletion.choices[0]?.message?.content || '';
+
+		// --- CORRECTION : EXTRACTION DES MOTS-CLÉS ---
+		// On découpe rawContent d'abord, puis on définit articleBody
+		const parts = rawContent.split('KEYWORDS:');
+		let articleBody = parts[0].trim();
+		const keywords = parts[1] ? parts[1].trim().replace(/[\[\]]/g, '') : 'technology,abstract';
 
 		// --- INJECTION D'AFFILIATION ---
-		// On boucle sur la map pour transformer les mots-clés en liens Markdown
 		Object.keys(affiliateMap).forEach(key => {
 			const regex = new RegExp(`\\b${key}\\b`, 'gi');
 			articleBody = articleBody.replace(regex, `[${key}](${affiliateMap[key]})`);
@@ -50,12 +57,12 @@ export async function generateArticle(newsData) {
 		return {
 			title: title,
 			body: articleBody,
-			date: new Date().toISOString(),
+			keywords: keywords, // Bien renvoyer les mots-clés pour l'image
 			slug: title
 				.toLowerCase()
 				.replace(/[^\w ]+/g, '')
 				.replace(/ +/g, '-'),
-			category: newsData.category || 'Général',
+			category: category || 'Général',
 		};
 	} catch (error) {
 		console.error('❌ Erreur Groq :', error.message);

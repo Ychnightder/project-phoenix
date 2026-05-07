@@ -20,6 +20,7 @@ export async function searchNews(query) {
 
 		// Appel API (correction du .then qui bloquait la variable)
 		const response = await client.search(query, {
+			includeAnswer: 'advanced',
 			searchDepth: 'advanced',
 			maxResults: 5,
 			timeRange: 'day',

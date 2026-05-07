@@ -17,6 +17,10 @@ const { Content } = await render(post); //
 <Layout title={post.data.title}>
 	<article class="max-w-[680px] mx-auto pt-10 px-6">
 		
+		
+
+	
+
 		<div class="mb-10">
 			<a href="/" class="flex items-center gap-2 text-sm text-gray-500 hover:text-black transition-colors group">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform group-hover:-translate-x-1 transition-transform">
@@ -25,6 +29,15 @@ const { Content } = await render(post); //
 				Retour à l'accueil
 			</a>
 		</div>
+				{post.data.heroImage && (
+		<div class="mb-8 overflow-hidden rounded-l shadow-lg">
+			<img 
+			src={post.data.heroImage} 
+			alt={post.data.title} 
+			class="w-full aspect-video object-cover hover:scale-105 transition-transform duration-500"
+			/>
+		</div>
+		)}
 
 		<header class="mb-12">
 			<h1 class="text-[32px] md:text-[42px] font-bold font-['Source_Serif_4'] leading-[1.1] mb-8 tracking-tight">
