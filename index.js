@@ -3,12 +3,13 @@ import { generateArticle } from './src/agents/architect.js';
 import { deploy } from './src/agents/publisher.js';
 import fs from 'fs';
 import path from 'path';
-
+import { topics } from './src/config.js';
 async function main() {
 	try {
 		// 1. SCAN : Trouver des news
 		// On peut varier le sujet dynamiquement
-		const topics = ['IA générative', 'Cybersécurité 2026', 'Web Développeur'];
+		// const topics = [...topics];
+
 		const randomTopic = topics[Math.floor(Math.random() * topics.length)];
 
 		const news = await searchNews(randomTopic);
@@ -29,14 +30,13 @@ async function main() {
 		const filePath = path.join(blogDir, fileName);
 
 		const content = `---
-title: "${article.title}"
+title: "${article.title.replace(/"/g, "'")}"
 pubDate: "${new Date().toISOString()}"
-description: "Analyse experte sur ${article.title}"
+description: "Analyse sur ${article.title.replace(/"/g, "'")}"
+category: "${article.category}" 
 ---
-
 ${article.body}
 
----
 *Source: ${news[0].url}*
 `;
 
@@ -44,7 +44,7 @@ ${article.body}
 		console.log(`📝 Article sauvegardé : ${fileName}`);
 
 		// 4. DEPLOY : Envoyer sur GitHub
-		await deploy();
+		 await deploy();
 	} catch (error) {
 		console.error('💀 Pipeline crash:', error);
 	}

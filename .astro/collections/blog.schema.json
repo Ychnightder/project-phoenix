@@ -19,6 +19,10 @@
     "heroImage": {
       "type": "string"
     },
+    "category": {
+      "default": "Général",
+      "type": "string"
+    },
     "$schema": {
       "type": "string"
     }

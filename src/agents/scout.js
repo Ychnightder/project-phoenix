@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { tavily } from '@tavily/core';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { ca } from 'zod/locales';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
@@ -20,7 +21,7 @@ export async function searchNews(query) {
 		// Appel API (correction du .then qui bloquait la variable)
 		const response = await client.search(query, {
 			searchDepth: 'advanced',
-			maxResults: 3,
+			maxResults: 5,
 			timeRange: 'day',
 		});
 
@@ -30,6 +31,7 @@ export async function searchNews(query) {
 			url: result.url,
 			content: result.content,
 			score: result.score,
+			category: query,
 		}));
 
 		console.log(`✅ ${news.length} opportunités trouvées.`);

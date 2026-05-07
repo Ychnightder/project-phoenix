@@ -4,3 +4,14 @@ export const affiliateMap = {
 	logiciel: 'https://votre-lien-saas.com',
 };
 // https://youtube.com/shorts/L1ZM1gd_mUg?si=nn1gdH6ZINE7iXa7
+
+export const topics = [
+	'IA générative',
+	'Cybersécurité 2026',
+	'Web Développeur',
+	'Nouvelles technologies et IA',
+	'Économie et Business',
+	'Actualité Scientifique',
+	'Culture et Société',
+	'Environnement et Énergie',
+];

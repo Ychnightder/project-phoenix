@@ -11,7 +11,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function generateArticle(newsData) {
-	const { title, content, url } = newsData;
+	const { title, content, url, category } = newsData;
 
 	console.log(`🧠 Génération de l'article pour : ${title}...`);
 
@@ -20,6 +20,7 @@ export async function generateArticle(newsData) {
         Sujet de base (News) : ${title}
         Contenu de référence : ${content}
         Source : ${url}
+        Catégorie : ${category}
 
         Instructions :
         1. Rédige un article de blog expert en Français.
@@ -54,6 +55,7 @@ export async function generateArticle(newsData) {
 				.toLowerCase()
 				.replace(/[^\w ]+/g, '')
 				.replace(/ +/g, '-'),
+			category: newsData.category || 'Général',
 		};
 	} catch (error) {
 		console.error('❌ Erreur Groq :', error.message);

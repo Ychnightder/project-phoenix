@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "system-ui", "sans-serif";
+}
+
+/* On ajoute un peu de style pour le contenu Markdown */
+@layer base {
+  .prose h2 { @apply text-2xl font-bold mt-8 mb-4 text-gray-800; }
+  .prose h3 { @apply text-xl font-semibold mt-6 mb-3 text-gray-800; }
+  .prose p { @apply mb-4 leading-relaxed text-gray-700; }
+  .prose ul { @apply list-disc ml-6 mb-4; }
+}
