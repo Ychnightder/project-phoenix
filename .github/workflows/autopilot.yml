@@ -1,0 +1,31 @@
+name: Phoenix Auto-Publisher
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Ajout des permissions explicites pour que le bot puisse écrire
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3 # Repasse en v3 si la v4 bloque
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm' # Optionnel : accélère le workflow
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Pipeline
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        run: node index.js
