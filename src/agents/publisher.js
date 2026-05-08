@@ -10,7 +10,7 @@ export async function deploy() {
 		// Obligatoire pour que GitHub puisse signer le commit
 		await git.addConfig('user.name', 'Ychnightder');
 		await git.addConfig('user.email', 'pierreychnightder561@gmail.com');
-		
+
 
 		console.log('📤 Préparation du commit...');
 		await git.add('./*');
@@ -22,7 +22,7 @@ export async function deploy() {
 			return;
 		}
 
-		await git.commit(`🤖 Auto-update: ${new Date().toISOString()}`);
+		await git.commit(`Auto-update: ${new Date().toISOString()}`);
 
 		console.log('🚀 Envoi vers la branche main...');
 		await git.push('origin', 'main');

@@ -48,11 +48,11 @@ export async function generateArticle(newsData) {
 		let articleBody = parts[0].trim();
 		const keywords = parts[1] ? parts[1].trim().replace(/[\[\]]/g, '') : 'technology,abstract';
 
-		// --- INJECTION D'AFFILIATION ---
-		Object.keys(affiliateMap).forEach(key => {
-			const regex = new RegExp(`\\b${key}\\b`, 'gi');
-			articleBody = articleBody.replace(regex, `[${key}](${affiliateMap[key]})`);
-		});
+		// // --- INJECTION D'AFFILIATION ---
+		// Object.keys(affiliateMap).forEach(key => {
+		// 	const regex = new RegExp(`\\b${key}\\b`, 'gi');
+		// 	articleBody = articleBody.replace(regex, `[${key}](${affiliateMap[key]})`);
+		// });
 
 		return {
 			title: title,
