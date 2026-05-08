@@ -8,8 +8,8 @@ export async function deploy() {
 	try {
 		console.log("📤 Configuration de l'identité Git...");
 		// Obligatoire pour que GitHub puisse signer le commit
-		await git.addConfig('user.name', 'Phoenix-Bot');
-		await git.addConfig('user.email', 'bot@phoenix.com');
+		await git.addConfig('user.name', 'Ychnightder');
+		await git.addConfig('user.email', 'pierreychnightder561@gmail.com');
 
 		console.log('📤 Préparation du commit...');
 		await git.add('./*');
