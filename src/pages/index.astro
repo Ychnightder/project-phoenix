@@ -22,13 +22,13 @@ const categories = ["Tous", ...topics];
     
   
   <div class="border-b border-gray-100 mb-8 sticky top-16.25 bg-white/95 backdrop-blur-sm z-40">
-    <div class="max-w-[1192px]  mx-auto relative group">
+    <div class="max-w-298  mx-auto relative group">
       
       <div id="category-nav" class="flex gap-6 overflow-x-auto no-scrollbar py-4 px-4 pr-20 text-sm text-gray-500 scroll-smooth">
         {categories.map((cat, index) => (
           <button 
             data-category={cat}
-            class={`filter-btn whitespace-nowrap capitalize transition-all duration-200 pb-4 -mb-[17px] border-b-2 font-medium flex-shrink-0 ${index === 0 ? 'text-black border-black' : 'border-transparent hover:text-black'}`}
+            class={`filter-btn whitespace-nowrap capitalize transition-all duration-200 pb-4 -mb-4.25 border-b-2 font-medium shrink-0 ${index === 0 ? 'text-black border-black' : 'border-transparent hover:text-black'}`}
           >
             {cat}
           </button>
@@ -38,7 +38,7 @@ const categories = ["Tous", ...topics];
     </div>
   </div>
 
-  <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-15">
+  <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-15 ">
     {posts.map((post) => (
       <a 
         href={`/blog/${post.id}`} 
@@ -52,7 +52,7 @@ const categories = ["Tous", ...topics];
     <img 
         src={post.data.heroImage} 
         alt={post.data.title} 
-        class="w-full aspect-video object-cover rounded-xl mb-10 shadow-lg" 
+        class="w-full aspect-video object-cover rounded-xs mb-10 shadow-lg" 
     />
 )}
   </div>
