@@ -3,6 +3,6 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
 	vite: {
-		plugins: [tailwindcss(), require('@tailwindcss/typography')],
+		plugins: [tailwindcss(), '@tailwindcss/forms'], // Ajout du plugin forms de Tailwind
 	},
 });
