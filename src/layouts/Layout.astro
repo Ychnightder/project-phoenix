@@ -74,9 +74,14 @@ import '../styles/global.css';
 		</footer>
 		
 	</body>
-	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQGRZV259S"></script>
-	<script src="./google.js" defer></script>
+	<script is:inline>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-RQGRZV259S');
+	</script>
 
 </html>
 
