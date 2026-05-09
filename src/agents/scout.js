@@ -22,7 +22,7 @@ export async function searchNews(query) {
 		const response = await client.search(query, {
 			includeAnswer: 'advanced',
 			searchDepth: 'advanced',
-			maxResults: 5,
+			maxResults: 15,
 			timeRange: 'day',
 		});
 
