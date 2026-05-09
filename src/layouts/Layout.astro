@@ -14,10 +14,12 @@ const {
 } = Astro.props;
 
 import '../styles/global.css';
+
 ---
 
 <!doctype html>
 <html lang="fr">
+
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -71,4 +73,15 @@ import '../styles/global.css';
 			© {new Date().getFullYear()} Phénix Blog - Intelligence Artificielle & Veille Tech
 		</footer>
 	</body>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQGRZV259S"></script>
+	<script >
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments)};
+		gtag('js', new Date());
+
+		gtag('config', 'G-RQGRZV259S');
+	</script>
+
 </html>
+
