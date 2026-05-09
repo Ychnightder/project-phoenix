@@ -45,7 +45,7 @@ ${article.body}
 		console.log(`📝 Article sauvegardé avec image : ${fileName}`);
 
 		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
-		//  await deploy();
+		 await deploy();
 	} catch (error) {
 		console.error('💀 Pipeline crash:', error);
 	}
