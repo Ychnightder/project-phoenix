@@ -17,10 +17,10 @@ export async function generateHeroImage(keywords) {
 		const response = await fetch(url);
 		const data = await response.json();
 
-		// if (data.urls && data.urls.regular) {
-		// 	// regular est parfait pour le web (haute def mais optimisé)
-		// 	return data.urls.regular;
-		// }
+		if (data.urls && data.urls.regular) {
+			// regular est parfait pour le web (haute def mais optimisé)
+			return data.urls.regular;
+		}
 
 		throw new Error('Format de réponse Unsplash inconnu');
 	} catch (error) {

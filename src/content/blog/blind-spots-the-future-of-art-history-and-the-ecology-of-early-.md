@@ -3,6 +3,7 @@ title: "Blind Spots: The Future of Art History and the Ecology of Early ..."
 pubDate: "2026-05-07T12:37:28.054Z"
 description: "Analyse sur Blind Spots: The Future of Art History and the Ecology of Early ..."
 category: "Culture et Société" 
+heroImage: "https://placehold.net/800x600.png"
 ---
 ## L'impact de l'argent sur l'histoire de l'art et l'écologie
 L'argent, ce métal noble et précieux, a joué un rôle crucial dans l'histoire de l'art et de la culture. Mais quels sont les liens entre l'argent, le colonialisme, le capitalisme et l'écologie ? Comment l'exploitation de l'argent a-t-elle influencé l'histoire de l'art et les relations entre les cultures ?

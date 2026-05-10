@@ -3,6 +3,7 @@ title: "Ecologie : 61 % des Français veulent une « mise en pause » des po
 pubDate: "2026-05-07T16:07:49.474Z"
 description: "Analyse sur Ecologie : 61 % des Français veulent une « mise en pause » des politiques environnementales face à la crise énergétique"
 category: "Environnement et Énergie" 
+heroImage: "https://placehold.net/800x600.png"
 ---
 ## L'écologie face à la crise énergétique : un dilemme pour les Français
 La crise énergétique actuelle a mis en lumière un dilemme pour les Français : comment concilier les politiques environnementales avec les besoins énergétiques du pays ? Selon une récente étude, 61 % des Français estiment qu'il est nécessaire de mettre en pause les politiques environnementales face à la crise énergétique. Cette tendance est inquiétante, car elle montre que les préoccupations environnementales sont reléguées au second plan face aux besoins immédiats en énergie.

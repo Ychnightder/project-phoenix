@@ -11,6 +11,7 @@ export async function deploy() {
 		await git.addConfig('user.name', 'Ychnightder');
 		await git.addConfig('user.email', 'pierreychnightder561@gmail.com');
 
+		await git.pull('origin', 'main'); // On s'assure d'être à jour avec la branche principale
 
 		console.log('📤 Préparation du commit...');
 		await git.add('./*');

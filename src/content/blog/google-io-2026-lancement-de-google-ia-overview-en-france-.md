@@ -2,6 +2,7 @@
 title: "Google I/O 2026 : lancement de Google IA Overview en France ?"
 pubDate: 2026-05-06T23:53:15.609Z
 description: "Analyse sur : Google I/O 2026 : lancement de Google IA Overview en France ?"
+heroImage: "https://placehold.net/800x600.png"
 ---
 
 ## Lancement de Google IA Overview en France : Quels Impacts pour les Utilisateurs et les Entreprises ?

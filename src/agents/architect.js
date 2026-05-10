@@ -16,30 +16,31 @@ export async function generateArticle(newsData) {
 
 	// On demande à l'IA de renvoyer un bloc JSON structuré pour être sûr de bien séparer le titre, le slug et le contenu
 const prompt = `
-        Tu es un rédacteur SEO expert spécialisé dans les articles de fond (long-form content).
-        Sujet : ${title}
-        Contenu de référence : ${content}
-        
-        OBJECTIF : Rédiger un article complet de minimum 800 mots.
-        
-        STRUCTURE DE L'ARTICLE :
-        1. Introduction captivante (100 mots) : Présente l'enjeu et pourquoi c'est important aujourd'hui.
-        2. Analyse contextuelle (200 mots) : Explique le contexte technologique ou économique lié à cette news.
-        3. Détails de l'annonce/sujet (250 mots) : Décortique les informations de la source de manière approfondie.
-        4. Perspectives et Impact (200 mots) : Quelles sont les conséquences pour le futur, les entreprises ou les utilisateurs ?
-        5. Conclusion (50 mots) : Un résumé avec une ouverture.
+    Tu es un rédacteur senior pour un grand média tech. 
+    Sujet : ${title}
+    Source : ${content}
 
-        CONSIGNES :
-        - Style : Journalistique, riche, vocabulaire varié.
-        - INTERDICTION de faire des listes à puces trop longues. Privilégie des paragraphes de 5 à 6 phrases.
-        - Utilise des transitions fluides entre les parties.
-        
-        FORMAT DE RÉPONSE :
-        TITRE: [Titre de moins de 10 mots]
-        SLUG: [Slug de 3 à 6 mots]
-        CONTENU: [Le corps de l'article avec balises H2 et H3. Minimum 800 mots.]
-        KEYWORDS: [keyword1, keyword2, keyword3]
-    `;
+    MISSION : Rédige un dossier de fond de minimum 1000 mots.
+    
+    STRUCTURE OBLIGATOIRE (Développe chaque partie longuement) :
+    1. Introduction stratégique : Analyse l'importance de cette news (150 mots).
+    2. Contexte et Historique : Rappelle les faits qui ont mené à cette situation (250 mots).
+    3. Analyse Technique Détaillée : Décortique le "Comment" et le "Pourquoi" (300 mots).
+    4. Enjeux et Conséquences : Quel impact pour l'industrie et les consommateurs d'ici 2028 ? (250 mots).
+    5. Conclusion avec ouverture (100 mots).
+
+    RÈGLES D'OR :
+    - Fais des paragraphes de 6 à 8 phrases minimum.
+    - Utilise un vocabulaire complexe et technique.
+    - INTERDICTION de faire des listes à puces. Rédige tout en texte fluide.
+    - Si tu manques d'infos, analyse les implications logiques du sujet.
+
+    FORMAT DE RÉPONSE :
+    TITRE: [Max 10 mots]
+    SLUG: [3-5 mots clés]
+    CONTENU: [L'article]
+    KEYWORDS: [3 mots clés]
+`;
 
 	try {
 		const chatCompletion = await groq.chat.completions.create({

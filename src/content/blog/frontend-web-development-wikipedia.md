@@ -2,6 +2,7 @@
 title: "Front-end web development - Wikipedia"
 pubDate: "2026-05-07T10:21:46.028Z"
 description: "Analyse experte sur Front-end web development - Wikipedia"
+heroImage: "https://placehold.net/800x600.png"
 ---
 
 ## Le Développement Front-end : Un Élément Clé de l'Expérience Utilisateur

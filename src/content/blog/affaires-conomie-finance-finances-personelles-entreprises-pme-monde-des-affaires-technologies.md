@@ -3,6 +3,7 @@ title: "Affaires, Économie, finance, finances personelles, entreprises, PME, mo
 pubDate: "2026-05-07T12:25:55.299Z"
 description: "Analyse experte sur Affaires, Économie, finance, finances personelles, entreprises, PME, monde des affaires, technologies"
 category: "Économie et Business"
+heroImage: "https://placehold.net/800x600.png"
 ---
 
 ## L'Économie Canadienne en Mouvement : Quels Défis et Opportunités pour les Entreprises ?
