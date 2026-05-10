@@ -17,15 +17,15 @@ export async function generateHeroImage(keywords) {
 		const response = await fetch(url);
 		const data = await response.json();
 
-		if (data.urls && data.urls.regular) {
-			// regular est parfait pour le web (haute def mais optimisé)
-			return data.urls.regular;
-		}
+		// if (data.urls && data.urls.regular) {
+		// 	// regular est parfait pour le web (haute def mais optimisé)
+		// 	return data.urls.regular;
+		// }
 
 		throw new Error('Format de réponse Unsplash inconnu');
 	} catch (error) {
 		console.error('❌ Erreur API Unsplash :', error.message);
 		// Fallback sur une image tech générique si l'API échoue ou quota atteint
-		return 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1080&q=80';
+		return 'https://placehold.net/800x600.png';
 	}
 }

@@ -45,7 +45,7 @@ const prompt = `
 		const chatCompletion = await groq.chat.completions.create({
 			messages: [{ role: 'user', content: prompt }],
 			model: 'llama-3.3-70b-versatile',
-			temperature: 0.6, // Un peu plus bas pour plus de sérieux
+			temperature: 0.6, 
 		});
 
 		const rawResponse = chatCompletion.choices[0]?.message?.content || '';
