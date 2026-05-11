@@ -1,12 +1,12 @@
 
-			---
-			title: "L'essor de l'IA cachée"
-			pubDate: "2026-05-11T09:44:55.059Z"
-			description: "Analyse sur L'essor de l'IA cachée"
-			category: "IA générative"
-			heroImage: "https://images.unsplash.com/photo-1644074126476-0c29a062312a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NDUyNzN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzg0OTI2OTV8&ixlib=rb-4.1.0&q=80&w=1080"
-			---
-			# L'essor de l'IA cachée
+---
+title: "L'essor de l'IA cachée"
+pubDate: "2026-05-11T09:44:55.059Z"
+description: "Analyse sur L'essor de l'IA cachée"
+category: "IA générative"
+heroImage: "https://images.unsplash.com/photo-1644074126476-0c29a062312a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NDUyNzN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzg0OTI2OTV8&ixlib=rb-4.1.0&q=80&w=1080"
+---
+# L'essor de l'IA cachée
 
 L'intelligence artificielle (IA) a déjà commencé à révolutionner le monde des entreprises, mais un phénomène plus subtil et potentiellement plus disruptif est en train d'émerger : l'IA cachée. Il s'agit de l'utilisation d'outils d'IA non approuvés par les départements IT des entreprises, utilisés par les employés pour améliorer leur productivité et leur efficacité. Cet article va explorer les raisons behind cette tendance, ses implications pour les entreprises et les conséquences potentielles.
 
@@ -34,5 +34,5 @@ L'avenir de l'IA cachée est incertain, mais il est clair que les entreprises do
 
 L'IA cachée est un phénomène complexe et multifacette qui reflète l'évolution de la façon dont les employés travaillent et interagissent avec la technologie. Les entreprises doivent prendre des mesures pour gérer et sécuriser l'utilisation de l'IA par les employés, en établissant des lignes directrices claires et en mettant en place des mécanismes de contrôle et de surveillance. En naviguant ce défi, les entreprises pourront tirer parti des avantages de l'IA tout en minimisant les risques et les limites.
 
-			*Source: https://www.businessinsider.com/sneaky-rise-shadow-ai-workplace-claude-it-2026-5*
+Source: https://www.businessinsider.com/sneaky-rise-shadow-ai-workplace-claude-it-2026-5
 		
