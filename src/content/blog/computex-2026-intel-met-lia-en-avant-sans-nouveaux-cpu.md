@@ -2,7 +2,7 @@
 title: "Computex 2026 : Intel Met L'IA En Avant, Sans Nouveaux CPU"
 pubDate: 2026-05-06T22:32:48.647Z
 description: "Analyse sur : Computex 2026 : Intel Met L'IA En Avant, Sans Nouveaux CPU"
-heroImage: "https://placehold.net/800x600.png"
+heroImage: "https://placehold.co/1920x1080"
 ---
 
 ## L'[intelligence artificielle](https://amzn.to/votre-lien-ia) au Cœur de la Stratégie d'Intel : Une Nouvelle Ère pour la Technologie

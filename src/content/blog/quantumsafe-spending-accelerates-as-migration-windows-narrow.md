@@ -2,7 +2,7 @@
 title: "Quantum-Safe Spending Accelerates as Migration Windows Narrow"
 pubDate: "2026-05-07T10:11:08.681Z"
 description: "Analyse experte sur Quantum-Safe Spending Accelerates as Migration Windows Narrow"
-heroImage: "https://placehold.net/800x600.png"
+heroImage: "https://placehold.co/1920x1080"
 ---
 
 ## La Sécurité Quantique : Un Enjeu Majeur pour les Institutions

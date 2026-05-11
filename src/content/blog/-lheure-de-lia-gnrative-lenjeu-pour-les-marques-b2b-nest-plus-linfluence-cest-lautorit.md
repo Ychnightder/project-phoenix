@@ -2,7 +2,7 @@
 title: "À l'heure de l'IA générative, l'enjeu pour les marques B2B n'est plus l'influence, c'est l'autorité"
 pubDate: "2026-05-07T10:17:23.922Z"
 description: "Analyse experte sur À l'heure de l'IA générative, l'enjeu pour les marques B2B n'est plus l'influence, c'est l'autorité"
-heroImage: "https://placehold.net/800x600.png"
+heroImage: "https://placehold.co/1920x1080"
 ---
 
 ## L'ère de l'IA générative : Comment les marques B2B peuvent-elles acquérir de l'autorité ?

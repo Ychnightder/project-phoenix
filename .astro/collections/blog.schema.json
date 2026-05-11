@@ -17,6 +17,7 @@
       "format": "date-time"
     },
     "heroImage": {
+      "default": "https://placehold.co/1920x1080",
       "type": "string"
     },
     "category": {

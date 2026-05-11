@@ -9,7 +9,7 @@ const blog = defineCollection({
 		description: z.string().optional(),
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
-		heroImage: z.string().optional(),
+		heroImage: z.string().default('https://placehold.co/1920x1080'),
 		category: z.string().default('Général'),
 	}),
 });
