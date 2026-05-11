@@ -34,14 +34,10 @@ export async function searchNews(query) {
 				category: query,
 			}));
 
-
-		
 		return news.slice(0, 5);
-		
 	} catch (error) {
 		console.error('❌ Erreur Scout :', error.message);
 		return [];
 	}
 }
-// Test rapide
-// // searchNews('Dernières innovations IA 2026').then(console.log);
+// searchNews('Dernières innovations IA 2026').then(console.log);
