@@ -14,7 +14,6 @@ export async function generateArticle(newsData) {
 	const { title, content, url, category } = newsData;
 	console.log(`🧠 Génération de l'article pour : ${title}...`);
 
-	// On demande à l'IA de renvoyer un bloc JSON structuré pour être sûr de bien séparer le titre, le slug et le contenu
 const prompt = `
     Tu es un rédacteur senior pour un grand média tech. 
     Sujet : ${title}
@@ -39,45 +38,45 @@ const prompt = `
     TITRE: [Max 10 mots]
     SLUG: [3-5 mots clés]
     CONTENU: [L'article]
-    KEYWORDS: [3 mots clés]
+    KEYWORDS: [3 mots clés en anglais, séparés par des virgules, pour illustrer l'article sur Unsplash]
 `;
 
-	try {
-		const chatCompletion = await groq.chat.completions.create({
-			messages: [{ role: 'user', content: prompt }],
-			model: 'llama-3.3-70b-versatile',
-			temperature: 0.6, 
-		});
+try {
+	const chatCompletion = await groq.chat.completions.create({
+		messages: [{ role: 'user', content: prompt }],
+		model: 'llama-3.3-70b-versatile',
+		temperature: 0.6,
+	});
 
-		const rawResponse = chatCompletion.choices[0]?.message?.content || '';
+	const rawResponse = chatCompletion.choices[0]?.message?.content || '';
 
-		// --- EXTRACTION INTELLIGENTE ---
-		const finalTitle = rawResponse.split('TITRE:')[1]?.split('SLUG:')[0]?.trim() || title;
-		const finalSlug =
-			rawResponse
-				.split('SLUG:')[1]
-				?.split('CONTENU:')[0]
-				?.trim()
-				.toLowerCase()
-				.replace(/[^\w ]+/g, '')
-				.replace(/ +/g, '-') || title.toLowerCase().replace(/ +/g, '-');
+	// --- EXTRACTION INTELLIGENTE ---
+	const finalTitle = rawResponse.split('TITRE:')[1]?.split('SLUG:')[0]?.trim() || title;
+	const finalSlug =
+		rawResponse
+			.split('SLUG:')[1]
+			?.split('CONTENU:')[0]
+			?.trim()
+			.toLowerCase()
+			.replace(/[^\w ]+/g, '')
+			.replace(/ +/g, '-') || title.toLowerCase().replace(/ +/g, '-');
 
-		const articleBody = rawResponse.split('CONTENU:')[1]?.split('KEYWORDS:')[0]?.trim() || '';
-		const keywords =
-			rawResponse
-				.split('KEYWORDS:')[1]
-				?.trim()
-				.replace(/[\[\]]/g, '') || 'tech,news';
+	const articleBody = rawResponse.split('CONTENU:')[1]?.split('KEYWORDS:')[0]?.trim() || '';
+	const keywords =
+		rawResponse
+			.split('KEYWORDS:')[1]
+			?.trim()
+			.replace(/[\[\]]/g, '') || '';
 
-		return {
-			title: finalTitle, // Le nouveau titre court
-			body: articleBody,
-			keywords: keywords,
-			slug: finalSlug, // L'URL propre demandée par Google
-			category: category || 'Tech',
-		};
-	} catch (error) {
-		console.error('❌ Erreur Groq :', error.message);
-		return null;
-	}
+	return {
+		title: finalTitle, // Le nouveau titre court
+		body: articleBody,
+		keywords: keywords,
+		slug: finalSlug, // L'URL propre demandée par Google
+		category: category || '',
+	};
+} catch (error) {
+	console.error('❌ Erreur Groq :', error.message);
+	return null;
+}
 }

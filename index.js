@@ -16,20 +16,25 @@ async function main() {
 		}
 
 		const article = await generateArticle(news[0]);
+
 		if (!article) return;
+
+		console.log('🖋️ Article généré :', article);
 
 		// --- AJOUT : GÉNÉRATION DE L'IMAGE ---
 		// On utilise les keywords générés par Groq pour Unsplash
 		const imageUrl = await generateHeroImage(article.keywords);
 
 		const blogDir = './src/content/blog';
+
 		if (!fs.existsSync(blogDir)) fs.mkdirSync(blogDir, { recursive: true });
 
 		const fileName = `${article.slug}.md`;
 		const filePath = path.join(blogDir, fileName);
 
 		// --- CORRECTION : AJOUT DE heroImage DANS LE FRONTMATTER ---
-		const content = `---
+		const content = `
+---
 title: "${article.title.replace(/"/g, "'")}"
 pubDate: "${new Date().toISOString()}"
 description: "Analyse sur ${article.title.replace(/"/g, "'")}"
@@ -39,13 +44,13 @@ heroImage: "${imageUrl}"
 ${article.body}
 
 *Source: ${news[0].url}*
-`;
+		`;
 
 		fs.writeFileSync(filePath, content);
 		console.log(`📝 Article sauvegardé avec image : ${fileName}`);
 
 		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
-		 await deploy();
+		//  await deploy();
 	} catch (error) {
 		console.error('💀 Pipeline crash:', error);
 	}

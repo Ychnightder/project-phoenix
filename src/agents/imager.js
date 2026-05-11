@@ -26,6 +26,6 @@ export async function generateHeroImage(keywords) {
 	} catch (error) {
 		console.error('❌ Erreur API Unsplash :', error.message);
 		// Fallback sur une image tech générique si l'API échoue ou quota atteint
-		return 'https://placehold.net/800x600.png';
+		return 'https://placehold.co/1920x1080';
 	}
 }
