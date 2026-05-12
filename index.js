@@ -5,6 +5,7 @@ import { deploy } from './src/agents/publisher.js';
 import fs from 'fs';
 import path from 'path';
 import { topics } from './src/config.js';
+
 async function main() {
 	try {
 		const randomTopic = topics[Math.floor(Math.random() * topics.length)];
@@ -15,25 +16,26 @@ async function main() {
 			return;
 		}
 
-		const article = await generateArticle(news[0]);
+		for (const item of news) {
+			const article = await generateArticle(item);
 
-		if (!article) return;
+			if (!article) return;
 
-		console.log('🖋️ Article généré :', article);
+			// console.log('🖋️ Article généré :', article);
 
-		// --- AJOUT : GÉNÉRATION DE L'IMAGE ---
-		// On utilise les keywords générés par Groq pour Unsplash
-		const imageUrl = await generateHeroImage(article.keywords);
+			// --- AJOUT : GÉNÉRATION DE L'IMAGE ---
+			// On utilise les keywords générés par Groq pour Unsplash
+			const imageUrl = await generateHeroImage(article.keywords);
 
-		const blogDir = './src/content/blog';
+			const blogDir = './src/content/blog';
 
-		if (!fs.existsSync(blogDir)) fs.mkdirSync(blogDir, { recursive: true });
+			if (!fs.existsSync(blogDir)) fs.mkdirSync(blogDir, { recursive: true });
 
-		const fileName = `${article.slug}.md`;
-		const filePath = path.join(blogDir, fileName);
+			const fileName = `${article.slug}.md`;
+			const filePath = path.join(blogDir, fileName);
 
-		// --- CORRECTION : AJOUT DE heroImage DANS LE FRONTMATTER ---
-		const content = `
+			// --- CORRECTION : AJOUT DE heroImage DANS LE FRONTMATTER ---
+			const content = `
 ---
 title: "${article.title.replace(/"/g, "'")}"
 pubDate: "${new Date().toISOString()}"
@@ -43,11 +45,13 @@ heroImage: "${imageUrl}"
 ---
 ${article.body}
 
-*Source: ${news[0].url}*
-		`;
+*Source: ${item.url}*`;
 
-		fs.writeFileSync(filePath, content);
-		console.log(`📝 Article sauvegardé avec image : ${fileName}`);
+			fs.writeFileSync(filePath, content);
+			console.log(`📝 Article sauvegardé avec image : ${fileName}`);
+		}
+
+		
 
 		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
 		//  await deploy();

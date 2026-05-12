@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { tavily } from '@tavily/core';
 import path from 'path';
 import { fileURLToPath } from 'url';
+// import { topics } from '../config.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
@@ -24,8 +25,8 @@ export async function searchNews(query) {
 		});
 
 		const news = response.results
-			// .filter(result => result.score > 0.5) // On élimine les résultats peu pertinents
-			.sort((a, b) => b.score - a.score) // On met les meilleurs en premier
+		
+			.sort((a, b) => b.score - a.score)
 			.map(result => ({
 				title: result.title,
 				url: result.url,
@@ -35,9 +36,13 @@ export async function searchNews(query) {
 			}));
 
 		return news.slice(0, 5);
+
+
 	} catch (error) {
 		console.error('❌ Erreur Scout :', error.message);
 		return [];
 	}
 }
-// searchNews('Dernières innovations IA 2026').then(console.log);
+
+// // const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+// // searchNews(randomTopic);
