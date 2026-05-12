@@ -23,7 +23,7 @@ export async function deploy() {
 			return;
 		}
 
-		await git.commit(`Auto-update: ${new Date().toISOString()}`);
+		await git.commit(`Auto-update: ${new Date().toISOString().replace('T', ' ').substring(0, 19)}`);
 
 		console.log('🚀 Envoi vers la branche main...');
 		await git.push('origin', 'main');
