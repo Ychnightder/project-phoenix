@@ -56,6 +56,7 @@ ${article.body}
 		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
 		  await deploy();
 	} catch (error) {
+		await deploy();
 		console.error('💀 Pipeline crash:', error);
 	}
 }
