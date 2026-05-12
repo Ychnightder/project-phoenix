@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: "Inter", "system-ui", "sans-serif";
+  
 }
 
 /* On ajoute un peu de style pour le contenu Markdown */
@@ -12,3 +13,7 @@
   .prose ul { @apply list-disc ml-6 mb-4; }
 }
 
+
+.dark-mode {
+  @apply bg-[#242424] text-gray-700;
+}
