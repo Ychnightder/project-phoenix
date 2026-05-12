@@ -96,11 +96,7 @@ export async function generateArticle(newsData) {
 			category: category || '',
 		};
 	} catch (error) {
-		if (error.status === 429) {
-			console.error('⏳ Quota Groq atteint (Rate Limit). Passage à la news suivante.');
-		} else {
-			console.error('❌ Erreur Architecte :', error.message);
-		}
-		return null; // On renvoie null pour indiquer que cet article a échoué
+		console.error('⏳ Quota Groq atteint...');
+		return null; 
 	}
 }

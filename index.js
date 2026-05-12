@@ -17,25 +17,29 @@ async function main() {
 		}
 
 		for (const item of news) {
-			const article = await generateArticle(item);
+			try {
+				const article = await generateArticle(item);
 
-			if (!article) return;
+				if (!article) {
+					console.log(`⏭️ News suivante...`);
+					continue; // Passe à l'item suivant dans newsList
+            	}
 
-			// console.log('🖋️ Article généré :', article);
+				// console.log('🖋️ Article généré :', article);
 
-			// --- AJOUT : GÉNÉRATION DE L'IMAGE ---
-			// On utilise les keywords générés par Groq pour Unsplash
-			const imageUrl = await generateHeroImage(article.keywords);
+				// --- AJOUT : GÉNÉRATION DE L'IMAGE ---
+				// On utilise les keywords générés par Groq pour Unsplash
+				const imageUrl = await generateHeroImage(article.keywords);
 
-			const blogDir = './src/content/blog';
+				const blogDir = './src/content/blog';
 
-			if (!fs.existsSync(blogDir)) fs.mkdirSync(blogDir, { recursive: true });
+				if (!fs.existsSync(blogDir)) fs.mkdirSync(blogDir, { recursive: true });
 
-			const fileName = `${article.slug}.md`;
-			const filePath = path.join(blogDir, fileName);
+				const fileName = `${article.slug}.md`;
+				const filePath = path.join(blogDir, fileName);
 
-			// --- CORRECTION : AJOUT DE heroImage DANS LE FRONTMATTER ---
-			const content = `
+				// --- CORRECTION : AJOUT DE heroImage DANS LE FRONTMATTER ---
+				const content = `
 ---
 title: "${article.title.replace(/"/g, "'")}"
 pubDate: "${new Date().toISOString()}"
@@ -47,12 +51,13 @@ ${article.body}
 
 *Source: ${item.url}*`;
 
-			fs.writeFileSync(filePath, content);
-			console.log(`📝 Article sauvegardé avec image : ${fileName}`);
+				fs.writeFileSync(filePath, content);
+				console.log(`📝 Article sauvegardé avec image : ${fileName}`);
+			} catch (error) {
+				console.error(`⚠️ Erreur sur cet item mais on continue :`, itemError.message);
+				continue;
+			}
 		}
-
-		
-
 		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
 		  await deploy();
 	} catch (error) {
