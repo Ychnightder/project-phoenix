@@ -2,17 +2,22 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
+const posts = await getCollection('blog');
+
 export async function getStaticPaths() {
-	const posts = await getCollection('blog'); //
 	return posts.map(post => ({
-		//
-		params: { id: post.id }, //
-		props: { post }, //
+		params: { id: post.id },
+		props: { post, posts },
 	}));
 }
 
 const { post } = Astro.props; //
 const { Content } = await render(post); //
+
+const relatedPosts = posts
+	.filter(p => p.id !== post.id && p.data.category === post.data.category)
+	.sort(() => Math.random() - 0.5) // Mélange aléatoire
+	.slice(0, 3); // On en garde 3
 ---
 
 <Layout title={post.data.title} description={post.data.description} image={post.data.heroImage}>
@@ -44,24 +49,26 @@ const { Content } = await render(post); //
 			<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-gray-900 dark:text-gray-300">
 				{post.data.title}
 			</h1>
-			<div class="flex">
-				<div class="flex flex-row items-center sm:flex-row sm:items-center gap-2 sm:gap-3 text-gray-500 dark:text-gray-300 text-sm w-1/2">
-					<time>{post.data.pubDate.toLocaleDateString('fr-FR', { dateStyle: 'long' })}</time>
+			<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 py-6 border-b border-gray-100 dark:border-gray-800">
+				<div class="flex flex-wrap justify-around gap-x-2 gap-y-1 text-gray-500 dark:text-gray-400 text-sm">
+					<time class="whitespace-nowrap">
+						{post.data.pubDate.toLocaleDateString('fr-FR', { dateStyle: 'long' })}
+					</time>
 
-					<!-- Séparateur visible uniquement sur tablette/desktop -->
-					<span class="hidden sm:inline">•</span>
+					<span class="text-gray-300 dark:text-gray-600 hidden sm:inline">•</span>
+					<span class="font-medium text-indigo-600 hidden sm:inline">Phénix AI</span>
+					<span class="text-gray-300 dark:text-gray-600 sm:hidden inline">|</span>
+					<span class="text-gray-300 dark:text-gray-600 hidden sm:inline">•</span>
 
-					<span class="font-medium text-indigo-600 hidden sm:inline">Par Phénix AI</span>
-
-					<!-- Séparateur visible uniquement sur tablette/desktop -->
-					<span class="">•</span>
-
-					<span>{post.body ? Math.ceil(post.body.split(/\s+/g).length / 200) : 0} min de lecture</span>
+					<span class="whitespace-nowrap">
+						{post.body ? Math.ceil(post.body.split(/\s+/g).length / 200) : 0} min de lecture
+					</span>
 				</div>
-				<div class="w-1/2 flex justify-end">
+
+				<div class="flex sm:justify-end">
 					<button
 						id="shareBtn"
-						class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer">
+						class="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-2.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-semibold cursor-pointer dark:text-white">
 						<span>Partager l'article</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -73,12 +80,11 @@ const { Content } = await render(post); //
 							stroke-width="2"
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line
-								x1="12"
-								y1="2"
-								x2="12"
-								y2="15"></line></svg
-						>
+							class="shrink-0">
+							<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+							<polyline points="16 6 12 2 8 6"></polyline>
+							<line x1="12" y1="2" x2="12" y2="15"></line>
+						</svg>
 					</button>
 				</div>
 			</div>
@@ -104,6 +110,59 @@ const { Content } = await render(post); //
 			<Content />
 		</div>
 	</article>
+
+	{
+		relatedPosts.length > 0 && (
+			<section class="mt-20 pt-10 border-t border-gray-100 dark:border-gray-800">
+				<h3 class="text-2xl font-bold font-['Source_Serif_4'] mb-8 dark:text-white">Dans la même catégorie</h3>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+					{relatedPosts.map(p => (
+						<a href={`/blog/${p.id}`} class="group">
+							<img src={p.data.heroImage} class="aspect-video object-cover rounded-sm mb-4" />
+							<h3 class=" font-bold font-['Source_Serif_4'] leading-tight mb-2 group-hover:text-gray-600 transition-colors dark:group-hover:text-gray-300">
+								{p.data.title}
+							</h3>
+
+							<p class="text-gray-500 text-sm line-clamp-3 font-['Source_Serif_4'] leading-relaxed mb-5">{p.data.description}</p>
+							<div class="mt-auto flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black dark:text-white group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
+								En savoir plus
+								<span class="transform group-hover:translate-x-1 transition-transform duration-200  mb-1">→</span>
+							</div>
+						</a>
+					))}
+				</div>
+			</section>
+		)
+	}
+	<!-- {
+		posts.map(post => (
+			<a
+				href={`/blog/${post.id}`}
+				data-category={post.data.category}
+				class="post-card group flex flex-col cursor-pointer transition-all duration-300">
+				<div class="aspect-video mb-4 overflow-hidden bg-gray-100 rounded-sm">
+					{post.data.heroImage && (
+						<img src={post.data.heroImage} alt={post.data.title} class="w-full aspect-video object-cover rounded-xs mb-10 shadow-lg" />
+					)}
+				</div>
+				<div class="flex items-center gap-2 mb-2">
+					<span class="text-[10px] font-bold uppercase tracking-widest text-indigo-600">{post.data.category}</span>
+					<span class="text-gray-300">·</span>
+					<time class="text-xs text-gray-500">{post.data.pubDate.toLocaleDateString('fr-FR', { month: 'short', day: 'numeric' })}</time>
+				</div>
+
+				<h2 class="text-xl font-bold font-['Source_Serif_4'] leading-tight mb-2 group-hover:text-gray-600 transition-colors dark:group-hover:text-gray-300">
+					{post.data.title}
+				</h2>
+
+				<p class="text-gray-500 text-sm line-clamp-3 font-['Source_Serif_4'] leading-relaxed mb-5">{post.data.description}</p>
+				<div class="mt-auto flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black dark:text-white group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
+					En savoir plus
+					<span class="transform group-hover:translate-x-1 transition-transform duration-200  mb-1">→</span>
+				</div>
+			</a>
+		))
+	} -->
 
 	<script>
 		window.addEventListener('scroll', () => {
