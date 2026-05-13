@@ -25,6 +25,7 @@
 		"dotenv": "^17.4.2",
 		"fs": "^0.0.1-security",
 		"groq-sdk": "^1.1.2",
+		"nodemailer": "^8.0.7",
 		"path": "^0.12.7",
 		"simple-git": "^3.36.0",
 		"tailwindcss": "^4.2.4",
@@ -36,6 +37,7 @@
 		"vite": "^7.1.0"
 	},
 	"devDependencies": {
-		"@tailwindcss/typography": "^0.5.19"
+		"@tailwindcss/typography": "^0.5.19",
+		"@types/nodemailer": "^8.0.0"
 	}
 }
