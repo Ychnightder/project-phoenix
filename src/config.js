@@ -29,4 +29,5 @@ export const topics = [
 	'Innovation et Startups',
 	'Alimentation et Agriculture',
 	'Voyages et Tourisme',
+	'Histoire et Culture',
 ];
