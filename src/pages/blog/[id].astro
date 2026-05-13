@@ -16,9 +16,14 @@ const { Content } = await render(post); //
 ---
 
 <Layout title={post.data.title} description={post.data.description} image={post.data.heroImage}>
+	<div id="progress-container" class="fixed top-16.25 left-0 w-full h-1 bg-transparent z-60">
+		<div id="progress-bar" class="h-full bg-indigo-600 w-0 transition-all duration-150"></div>
+	</div>
 	<article class="max-w-180 mx-auto py-12 px-4">
 		<div class="mb-10">
-			<a href="/" class="flex items-center gap-2 text-sm text-gray-500 hover:text-black transition-colors group">
+			<a
+				href="/"
+				class="flex items-center gap-2 text-sm text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors group">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="20"
@@ -36,15 +41,46 @@ const { Content } = await render(post); //
 			</a>
 		</div>
 		<header class="mb-12">
-			<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-gray-900">
+			<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-gray-900 dark:text-gray-300">
 				{post.data.title}
 			</h1>
-			<div class="flex items-center gap-3 text-gray-500 text-sm">
-				<time>{post.data.pubDate.toLocaleDateString('fr-FR', { dateStyle: 'long' })}</time>
-				<span>•</span>
-				<span class="font-medium text-indigo-600">Par Phénix AI</span>
-				<span>•</span>
-				<span>{post.body ? Math.ceil(post.body.split(/\s+/g).length / 200) : 0} min de lecture</span>
+			<div class="flex">
+				<div class="flex flex-row items-center sm:flex-row sm:items-center gap-2 sm:gap-3 text-gray-500 dark:text-gray-300 text-sm w-1/2">
+					<time>{post.data.pubDate.toLocaleDateString('fr-FR', { dateStyle: 'long' })}</time>
+
+					<!-- Séparateur visible uniquement sur tablette/desktop -->
+					<span class="hidden sm:inline">•</span>
+
+					<span class="font-medium text-indigo-600 hidden sm:inline">Par Phénix AI</span>
+
+					<!-- Séparateur visible uniquement sur tablette/desktop -->
+					<span class="">•</span>
+
+					<span>{post.body ? Math.ceil(post.body.split(/\s+/g).length / 200) : 0} min de lecture</span>
+				</div>
+				<div class="w-1/2 flex justify-end">
+					<button
+						id="shareBtn"
+						class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer">
+						<span>Partager l'article</span>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line
+								x1="12"
+								y1="2"
+								x2="12"
+								y2="15"></line></svg
+						>
+					</button>
+				</div>
 			</div>
 		</header>
 
@@ -55,10 +91,41 @@ const { Content } = await render(post); //
 			crossorigin="anonymous"
 		/>
 
-		<div class="prose prose-lg prose-indigo max-w-none prose-headings:font-bold prose-a:text-indigo-600 hover:prose-a:text-indigo-500">
+		<div
+			class="prose
+			prose-lg
+			prose-indigo
+			max-w-none
+			dark:prose-invert
+			prose-headings:font-bold
+			prose-a:text-indigo-600
+			hover:prose-a:text-indigo-500
+			dark:prose-a:text-indigo-400">
 			<Content />
 		</div>
 	</article>
+
+	<script>
+		window.addEventListener('scroll', () => {
+			const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+			const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+			const scrolled = (winScroll / height) * 100;
+			const bar = document.getElementById('progress-bar');
+			if (bar) bar.style.width = scrolled + '%';
+		});
+
+		const shareBtn = document.getElementById('shareBtn');
+		shareBtn?.addEventListener('click', async () => {
+			try {
+				await navigator.share({
+					title: document.title,
+					url: window.location.href,
+				});
+			} catch (err) {
+				console.log('Partage annulé ou non supporté');
+			}
+		});
+	</script>
 </Layout>
 
 <!-- <Layout title={post.data.title} 
