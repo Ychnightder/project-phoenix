@@ -2,19 +2,20 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-const posts = await getCollection('blog');
 
 export async function getStaticPaths() {
-	return posts.map(post => ({
+	const allPosts = await getCollection('blog');
+
+	return allPosts.map(post => ({
 		params: { id: post.id },
-		props: { post, posts },
+		props: { post, allPosts },
 	}));
 }
 
-const { post } = Astro.props; //
+const { post , allPosts } = Astro.props; //
 const { Content } = await render(post); //
 
-const relatedPosts = posts
+const relatedPosts = allPosts
 	.filter(p => p.id !== post.id && p.data.category === post.data.category)
 	.sort(() => Math.random() - 0.5) // Mélange aléatoire
 	.slice(0, 3); // On en garde 3
