@@ -2,7 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-
 export async function getStaticPaths() {
 	const allPosts = await getCollection('blog');
 
@@ -12,7 +11,7 @@ export async function getStaticPaths() {
 	}));
 }
 
-const { post , allPosts } = Astro.props; //
+const { post, allPosts } = Astro.props; //
 const { Content } = await render(post); //
 
 const relatedPosts = allPosts
@@ -157,4 +156,20 @@ const relatedPosts = allPosts
 			}
 		});
 	</script>
+	<script
+		type="application/ld+json"
+		is:inline
+		set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'BlogPosting',
+			headline: post.data.title,
+			description: post.data.description,
+			image: post.data.heroImage,
+			datePublished: post.data.pubDate.toISOString(),
+			author: {
+				'@type': 'Organization',
+				name: 'Phénix AI',
+			},
+		})}
+	/>
 </Layout>
