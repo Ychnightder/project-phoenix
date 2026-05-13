@@ -12,7 +12,7 @@
 @layer base {
   .prose h2 { @apply text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-300; }
   .prose h3 { @apply text-xl font-semibold mt-6 mb-3 text-gray-800 dark:text-gray-300; }
-  .prose p { @apply mb-4 leading-relaxed text-gray-700 dark:text-gray-300; }
+  .prose p { @apply mb-4 leading-relaxed text-gray-700 dark:text-gray-300 wrap-break-word ; }
   .prose ul { @apply list-disc ml-6 mb-4; }
   body {
     @apply antialiased;
@@ -24,3 +24,6 @@
   @apply bg-[#242424] text-gray-700 dark:text-gray-300;
 }
  */
+.prose footer, .prose hr + p {
+    word-break: break-all;
+}
