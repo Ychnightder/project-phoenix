@@ -5,8 +5,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import vercel from '@astrojs/vercel';
-import vercel from '@astrojs/vercel/serverless';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, './.env') });
 
@@ -22,5 +21,4 @@ export default defineConfig({
 	adapter: vercel({
 		webAnalytics: { enabled: true }, // Optionnel
 	}),
-	output: 'hybrid',
 });
