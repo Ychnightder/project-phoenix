@@ -14,9 +14,9 @@ const {
 } = Astro.props;
 
 import '../styles/global.css';
+import NewsletterModal from '../components/NewsletterModal.astro';
 ---
 
-<!doctype html>
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8" />
@@ -96,13 +96,14 @@ import '../styles/global.css';
 		</script>
 	</head>
 	<body class="bg-white text-[#121212] dark:bg-[#121212] dark:text-gray-100 font-['Inter'] antialiased">
+		<NewsletterModal />
 		<nav
 			class="h-16.25 border-b border-gray-100 sticky top-0 bg-white/95 dark:bg-[#121212] dark:text-gray-100 dark:border-gray-700 backdrop-blur-sm z-50">
 			<div class="max-w-298 mx-auto px-6 h-full flex items-center justify-between">
 				<a href="/" class="text-2xl font-bold tracking-tighter hover:opacity-80 transition-opacity">Phénix.</a>
 				<div class="hidden md:flex gap-6 text-sm font-medium text-gray-500">
-					<a href="/" class="hover:text-black">Accueil</a>
-					<span class="cursor-not-available opacity-50">Newsletter</span>
+					<a href="/" class="hover:text-black dark:hover:text-gray-100">Accueil</a>
+					<a href="" class="hover:text-black dark:hover:text-gray-100">Newsletter</a>
 				</div>
 				<button
 					id="themeToggle"
