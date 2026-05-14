@@ -5,6 +5,7 @@ import { deploy } from './src/agents/publisher.js';
 import fs from 'fs';
 import path from 'path';
 import { topics } from './src/config.js';
+// // import { runMailer } from './src/pages/api/mailer.js';
 
 async function main() {
 	try {
@@ -51,10 +52,11 @@ ${article.body}
 			console.log(`📝 Article sauvegardé avec image : ${fileName}`);
 		}
 
-		
-
 		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
 		//  await deploy();
+
+		console.log('📧 Lancement de la diffusion newsletter...');
+		// await runMailer();
 	} catch (error) {
 		console.error('💀 Pipeline crash:', error);
 	}

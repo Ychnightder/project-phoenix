@@ -1,0 +1,20 @@
+name: Send Newsletter
+on:
+  push:
+    branches: [main]
+    paths: ['src/content/blog/**'] # Ne se lance que si un article change
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Run Mailer Agent
+        run: npx tsx src/scripts/mailer-agent.ts
+        env:
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          PASS_EMAIL: ${{ secrets.PASS_EMAIL }}
+          HOST_EMAIL: smtp-phenixblog.alwaysdata.net

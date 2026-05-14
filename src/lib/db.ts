@@ -1,6 +1,6 @@
 import { createClient } from '@libsql/client';
+import 'dotenv/config';
 
-// On récupère les variables d'environnement
 const url = import.meta.env.TURSO_DATABASE_URL || process.env.TURSO_DATABASE_URL;
 const authToken = import.meta.env.TURSO_AUTH_TOKEN || process.env.TURSO_AUTH_TOKEN;
 
