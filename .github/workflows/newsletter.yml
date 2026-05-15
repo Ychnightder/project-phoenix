@@ -1,8 +1,11 @@
 name: Send Newsletter
 on:
   push:
-    branches: [main]
-    paths: ['src/content/blog/**'] # Ne se lance que si un article change
+    branches: 
+      - main
+      - feat/design-style # Ajoute le nom de ta branche de test ici
+    paths:
+      - 'src/content/blog/**' # Le workflow ne se lancera que si tu modifies un article
 jobs:
   send:
     runs-on: ubuntu-latest
