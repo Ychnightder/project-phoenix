@@ -1,3 +1,5 @@
+// Tout en haut de mailer.ts
+export const prerender = false;
 import dotenv from 'dotenv';
 import path from 'node:path';
 import { fileURLToPath } from 'url';
