@@ -1,5 +1,6 @@
 name: Send Newsletter
 on:
+  workflow_dispatch:
   push:
     branches: 
       - main
