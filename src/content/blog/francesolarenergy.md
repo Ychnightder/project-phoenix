@@ -1,4 +1,3 @@
-
 ---
 title: "France's Solar Self-Consumption"
 pubDate: "2026-05-14T16:26:15.503Z"

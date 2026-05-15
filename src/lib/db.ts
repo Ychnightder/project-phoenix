@@ -1,8 +1,17 @@
 import { createClient } from '@libsql/client';
-import 'dotenv/config';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-const url = import.meta.env.TURSO_DATABASE_URL || process.env.TURSO_DATABASE_URL;
-const authToken = import.meta.env.TURSO_AUTH_TOKEN || process.env.TURSO_AUTH_TOKEN;
+// On initialise dotenv seulement si on est dans un environnement Node (process.env présent)
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+
+// SOLUTION : Utiliser l'optional chaining (?.) pour éviter le crash
+// On vérifie d'abord si process.env existe, sinon on regarde import.meta.env
+const url = process.env.TURSO_DATABASE_URL || (typeof import.meta.env !== 'undefined' ? import.meta.env.TURSO_DATABASE_URL : undefined);
+const authToken = process.env.TURSO_AUTH_TOKEN || (typeof import.meta.env !== 'undefined' ? import.meta.env.TURSO_AUTH_TOKEN : undefined);
+
 
 export const db = createClient({
 	url: url ?? 'file:local.db', // Utilise un fichier local si l'URL Turso est absente

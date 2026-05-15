@@ -23,7 +23,8 @@ export const GET: APIRoute = async ({ url }) => {
 			args: [email],
 		});
 
-		// Rediriger vers une page de succès sur ton blog
+		localStorage.removeItem('phoenix_subscribed');
+
 		return new Response(
 			`
             <html>
@@ -43,6 +44,24 @@ export const GET: APIRoute = async ({ url }) => {
 			{ headers: { 'Content-Type': 'text/html' } }
 		);
 	} catch (e) {
-		return new Response('Erreur lors de la suppression', { status: 500 });
+		const email = atob(token);
+		return new Response(
+			`
+            <html>
+            <head>
+                <title>Désabonnement Déjà Effectué</title>
+                <meta charset="UTF-8" />
+		        <meta name="viewport" content="width=device-width" />
+		        <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+            </head>
+                <body style="font-family: sans-serif; text-align: center; padding-top: 50px;">
+                    <h1>Désabonnement Déjà Effectué</h1>
+                    <p>Votre adresse ${email} n'était pas inscrite à notre newsletter.</p>
+                    <a href="/">Retour au blog</a>
+                </body>
+            </html>
+        `,
+			{ headers: { 'Content-Type': 'text/html' } }
+		);
 	}
 };
