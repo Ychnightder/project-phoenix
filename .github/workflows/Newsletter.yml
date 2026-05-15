@@ -1,0 +1,23 @@
+name: Send Newsletter
+on:
+  push:
+    branches: 
+      - main
+      - feat/design-style # Ajoute le nom de ta branche de test ici
+    paths:
+      - 'src/content/blog/**' # Le workflow ne se lancera que si tu modifies un article
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Run Mailer Agent
+        run: npx tsx src/scripts/mailer-agent.ts
+        env:
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          PASS_EMAIL: ${{ secrets.PASS_EMAIL }}
+          HOST_EMAIL: smtp-phenixblog.alwaysdata.net
