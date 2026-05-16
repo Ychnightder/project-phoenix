@@ -1,4 +1,3 @@
-
 ---
 title: "Oman Initiative Attracts Entrepreneurs"
 pubDate: "2026-05-11T22:25:18.985Z"

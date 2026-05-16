@@ -1,4 +1,3 @@
-
 ---
 title: "Révolution de la gouvernance"
 pubDate: "2026-05-11T09:58:07.088Z"

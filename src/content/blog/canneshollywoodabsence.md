@@ -1,4 +1,3 @@
-
 ---
 title: "Cannes sans Hollywood"
 pubDate: "2026-05-12T08:40:52.391Z"

@@ -1,4 +1,3 @@
-
 ---
 title: "La confiance académique"
 pubDate: "2026-05-12T09:15:17.797Z"

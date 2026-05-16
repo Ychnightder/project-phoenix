@@ -1,4 +1,3 @@
-
 ---
 title: "Technologie verte en Inde"
 pubDate: "2026-05-14T16:26:12.044Z"

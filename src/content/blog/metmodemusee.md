@@ -1,4 +1,3 @@
-
 ---
 title: "Le Met et la mode"
 pubDate: "2026-05-12T07:20:39.632Z"

@@ -1,4 +1,3 @@
-
 ---
 title: "Le Génie du Rock and Roll"
 pubDate: "2026-05-12T09:27:46.936Z"

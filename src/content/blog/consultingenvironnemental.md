@@ -1,4 +1,3 @@
-
 ---
 title: "Analyse SWOT du secteur"
 pubDate: "2026-05-14T16:26:04.534Z"

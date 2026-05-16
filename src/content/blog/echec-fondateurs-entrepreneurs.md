@@ -1,4 +1,3 @@
-
 ---
 title: "L'échec n'a pas peur des fondateurs"
 pubDate: "2026-05-11T10:15:51.088Z"

@@ -1,4 +1,3 @@
-
 ---
 title: "Le Futur de l'IA"
 pubDate: "2026-05-11T09:54:39.796Z"

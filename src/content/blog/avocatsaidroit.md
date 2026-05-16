@@ -1,4 +1,3 @@
-
 ---
 title: "L'avenir du droit"
 pubDate: "2026-05-12T09:39:44.857Z"

@@ -1,4 +1,3 @@
-
 ---
 title: "L'implémentation dans les santétech"
 pubDate: "2026-05-12T07:15:29.880Z"

@@ -1,4 +1,3 @@
-
 ---
 title: "Microsoft licencie des dirigeants"
 pubDate: "2026-05-11T22:28:07.154Z"

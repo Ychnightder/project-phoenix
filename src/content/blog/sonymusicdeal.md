@@ -1,4 +1,3 @@
-
 ---
 title: "Sony acquiert les droits musicaux"
 pubDate: "2026-05-12T09:27:43.630Z"
