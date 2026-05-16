@@ -53,7 +53,9 @@ export async function generateArticle(newsData) {
 		const chatCompletion = await groq.chat.completions.create({
 			messages: [{ role: 'user', content: prompt }],
 			model: process.env.MODEL_IA || 'llama-3.3-70b-versatile',
-			temperature: 0.6,
+			temperature: 0.5,
+			max_tokens: 4096, 
+			response_format: { type: 'json_object' },
 		});
 
 		const rawResponse = chatCompletion.choices[0]?.message?.content || '';
