@@ -4,18 +4,20 @@ interface Props {
 	description?: string;
 	image?: string;
 	articleDate?: Date;
+
 }
 
 const {
 	title,
 	description = "Phénix : Votre veille intelligente sur l'IA, la tech et le business.",
-	image = '/default-og.jpg', // Crée une image par défaut dans public/
+	image = '/1920x1080.svg',
 	articleDate,
 } = Astro.props;
 
 import '../styles/global.css';
 import NewsletterModal from '../components/NewsletterModal.astro';
 import AdPlaceholder from '../components/AdPlaceholder.astro';
+const adCount = Array.from({ length: 0 });
 ---
 
 <html lang="fr">
@@ -97,11 +99,6 @@ import AdPlaceholder from '../components/AdPlaceholder.astro';
 		</script>
 	</head>
 	<body class="bg-white text-[#121212] dark:bg-[#121212] dark:text-gray-100 font-['Inter'] antialiased">
-		<aside class="hidden lg:block w-80">
-			<AdPlaceholder format="leaderboard" />
-			<AdPlaceholder format="rectangle" />
-			<AdPlaceholder format="sidebar" />
-		</aside>
 		<NewsletterModal />
 		<nav
 			class="h-16.25 border-b border-gray-100 sticky top-0 bg-white/95 dark:bg-[#121212] dark:text-gray-100 dark:border-gray-700 backdrop-blur-sm z-50">
@@ -128,14 +125,28 @@ import AdPlaceholder from '../components/AdPlaceholder.astro';
 				</button>
 			</div>
 		</nav>
-		<main class="max-w-298 mx-auto px-6 py-12">
-			<div>
-				<AdPlaceholder format="sidebar" />
+		<main class="flex justify-center gap-8 px-4 sm:px-10 py-12">
+			<aside class="hidden xl:flex flex-col gap-6 w-[200px] shrink-0 mt-60">
+				<div class="sticky flex flex-col gap-6">
+					<div class="sticky top-24 flex flex-col gap-6">
+						{adCount.map((_, index) => <AdPlaceholder format="sidebar" `} />)}
+					</div>
+				</div>
+			</aside>
+
+			<div class="max-w-[1850px] flex-1 min-w-0">
+				<div class="prose prose-slate dark:prose-invert max-w-none">
+					<slot />
+				</div>
 			</div>
-			<div>
-				<slot />
-			</div>
-			<AdPlaceholder format="sidebar" />
+
+			<aside class="hidden xl:flex flex-col gap-6 w-[200px] shrink-0 mt-60">
+				<div class="sticky flex flex-col gap-6">
+					<div class="sticky top-24 flex flex-col gap-6">
+						{adCount.map((_, index) => <AdPlaceholder format="sidebar"  />)}
+					</div>
+				</div>
+			</aside>
 		</main>
 		<footer class="border-t border-gray-100 py-10 mt-20">
 			<div class="max-w-298 mx-auto px-6 flex justify-between items-center text-sm text-gray-500">
