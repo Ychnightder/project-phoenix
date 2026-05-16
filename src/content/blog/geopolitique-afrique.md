@@ -1,4 +1,3 @@
-
 ---
 title: "Macron en Afrique"
 pubDate: "2026-05-11T10:20:32.245Z"

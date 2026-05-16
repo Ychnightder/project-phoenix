@@ -1,4 +1,3 @@
-
 ---
 title: "BASF Agricultural Solutions Investit"
 pubDate: "2026-05-11T22:22:37.271Z"

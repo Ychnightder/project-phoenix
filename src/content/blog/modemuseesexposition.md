@@ -1,4 +1,3 @@
-
 ---
 title: "La Mode dans les Musées"
 pubDate: "2026-05-12T07:18:14.833Z"

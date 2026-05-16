@@ -1,4 +1,3 @@
-
 ---
 title: "Le Retour des Genres de Jeu"
 pubDate: "2026-05-12T06:57:53.732Z"

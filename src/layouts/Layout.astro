@@ -4,19 +4,22 @@ interface Props {
 	description?: string;
 	image?: string;
 	articleDate?: Date;
+
 }
 
 const {
 	title,
 	description = "Phénix : Votre veille intelligente sur l'IA, la tech et le business.",
-	image = '/default-og.jpg', // Crée une image par défaut dans public/
+	image = '/1920x1080.svg',
 	articleDate,
 } = Astro.props;
 
 import '../styles/global.css';
+import NewsletterModal from '../components/NewsletterModal.astro';
+import AdPlaceholder from '../components/AdPlaceholder.astro';
+const adCount = Array.from({ length: 0 });
 ---
 
-<!doctype html>
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8" />
@@ -46,6 +49,8 @@ import '../styles/global.css';
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={image} />
 
+		<meta name="pinterest-rich-pin" content="false" />
+		<link rel="alternate" type="application/rss+xml" title="Phénix Blog RSS Feed" href={`${Astro.site}rss.xml`} />
 		<!-- <meta http-equiv="X-Frame-Options" content="DENY" /> -->
 
 		<meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
@@ -70,24 +75,83 @@ import '../styles/global.css';
 
 		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2963192094845544" crossorigin="anonymous"
 		></script>
+
+		<script is:inline>
+			const savedTheme = localStorage.getItem('theme');
+
+			if (savedTheme === 'dark') {
+				document.documentElement.classList.add('dark');
+			}
+
+			document.addEventListener('DOMContentLoaded', () => {
+				const button = document.getElementById('themeToggle');
+
+				if (!button) return;
+
+				button.addEventListener('click', () => {
+					document.documentElement.classList.toggle('dark');
+
+					const isDark = document.documentElement.classList.contains('dark');
+
+					localStorage.setItem('theme', isDark ? 'dark' : 'light');
+				});
+			});
+		</script>
 		<meta name="msvalidate.01" content="69A3FC057076A2EFD9E7C8E1A115953C" />
 	</head>
-	<body class="bg-white text-[#242424] font-['Inter'] antialiased">
-		<nav class="h-16.25 border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-sm z-50">
+	<body class="bg-white text-[#121212] dark:bg-[#121212] dark:text-gray-100 font-['Inter'] antialiased">
+		<NewsletterModal />
+		<nav
+			class="h-16.25 border-b border-gray-100 sticky top-0 bg-white/95 dark:bg-[#121212] dark:text-gray-100 dark:border-gray-700 backdrop-blur-sm z-50">
 			<div class="max-w-298 mx-auto px-6 h-full flex items-center justify-between">
 				<a href="/" class="text-2xl font-bold tracking-tighter hover:opacity-80 transition-opacity">Phénix.</a>
 				<div class="hidden md:flex gap-6 text-sm font-medium text-gray-500">
-					<a href="/" class="hover:text-black">Accueil</a>
-					<span class="cursor-not-available opacity-50">Newsletter</span>
+					<span>|</span>
+					<a href="/" class="hover:text-black dark:hover:text-gray-100">Accueil</a>
+					<span>|</span>
+					<a href="/contact" class="hover:text-black dark:hover:text-gray-100">Contact</a>
+					<span>|</span>
+					<button id="open-newsletter" class="hover:text-black dark:hover:text-gray-100 cursor-pointer transition-colors"> Newsletter </button>
+					<span>|</span>
 				</div>
+				<button
+					id="themeToggle"
+					class="group relative flex items-center justify-center w-8 h-8 sm:w-11 sm:h-11 rounded-full border border-gray-400 bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300 cursor-pointer hover:scale-105 hover:bg-gray-100 hover:shadow-md dark:border-gray-700 dark:bg-[#1e1e1e]/80 dark:hover:bg-[#2a2a2a]"
+					aria-label="Changer le thème">
+					<!-- Icône lune -->
+					<span class="absolute text-lg transition-all duration-300 rotate-0 scale-100 dark:-rotate-90 dark:scale-0"> 🌙 </span>
+
+					<!-- Icône soleil -->
+					<span class="absolute text-lg transition-all duration-300 rotate-90 scale-0 dark:rotate-0 dark:scale-100"> ☀️ </span>
+				</button>
 			</div>
 		</nav>
-		<main class="max-w-298 mx-auto px-6 py-12">
-			<slot />
+		<main class="flex justify-center gap-8 px-4 sm:px-10 py-12">
+			<aside class="hidden xl:flex flex-col gap-6 w-[200px] shrink-0 mt-60">
+				<div class="sticky flex flex-col gap-6">
+					<div class="sticky top-24 flex flex-col gap-6">
+						{adCount.map((_, index) => <AdPlaceholder format="sidebar" `} />)}
+					</div>
+				</div>
+			</aside>
+
+			<div class="max-w-[1850px] flex-1 min-w-0">
+				<div class="prose prose-slate dark:prose-invert max-w-none">
+					<slot />
+				</div>
+			</div>
+
+			<aside class="hidden xl:flex flex-col gap-6 w-[200px] shrink-0 mt-60">
+				<div class="sticky flex flex-col gap-6">
+					<div class="sticky top-24 flex flex-col gap-6">
+						{adCount.map((_, index) => <AdPlaceholder format="sidebar"  />)}
+					</div>
+				</div>
+			</aside>
 		</main>
 		<footer class="border-t border-gray-100 py-10 mt-20">
 			<div class="max-w-298 mx-auto px-6 flex justify-between items-center text-sm text-gray-500">
-				<p>© {new Date().getFullYear()} Phénix. Tous droits réservés.</p>
+				<p class="">© {new Date().getFullYear()} Phénix. Tous droits réservés.</p>
 				<div class="flex gap-6">
 					<a href="/consent" class="hover:text-black">Confidentialité</a>
 					<a href="/contact" class="hover:text-black">Contact</a>
@@ -104,5 +168,12 @@ import '../styles/global.css';
 		gtag('js', new Date());
 
 		gtag('config', 'G-RQGRZV259S');
+	</script>
+	<script>
+		// Script pour ouvrir la modal depuis le menu
+		document.getElementById('open-newsletter')?.addEventListener('click', () => {
+			const modal = document.getElementById('newsletter-modal');
+			modal?.classList.remove('hidden');
+		});
 	</script>
 </html>

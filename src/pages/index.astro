@@ -7,132 +7,190 @@ const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 // On ajoute "Tous" pour pouvoir réinitialiser le filtre
-const categories = ["Tous", ...topics];
+const categories = ['Tous', ...topics];
 ---
 
-<Layout title="Phéni-x Blog | Explorer les Topics" >
+<Layout title="Phéni-x Blog | Explorer les Topics">
+	<h1 class="text-5xl md:text-6xl font-bold font-['Source_Serif_4'] tracking-tight leading-tight mb-4">
+		L'actualité décryptée par <br />
+		<span class="text-indigo-600 italic">Phénix.</span>
+	</h1>
+	<p class="text-lg md:text-xl text-gray-500 font-medium leading-relaxed">Une veille intelligente sur la tech, le business et la culture.</p>
 
-    <h1 class="text-5xl md:text-6xl font-bold font-['Source_Serif_4'] tracking-tight leading-tight mb-4">
-      L'actualité décryptée par <br/>
-      <span class="text-indigo-600 italic">Phénix.</span>
-    </h1>
-    <p class="text-lg md:text-xl text-gray-500 font-medium leading-relaxed">
-      Une veille intelligente sur la tech, le business et la culture.
-    </p>
-    
-  
-  <div class="border-b border-gray-100 mb-8 sticky top-16.25 bg-white/95 backdrop-blur-sm z-40">
-    <div class="max-w-298  mx-auto relative group">
-      
-      <div id="category-nav" class="flex gap-6 overflow-x-auto no-scrollbar py-4 px-4 pr-20 text-sm text-gray-500 scroll-smooth">
-        {categories.map((cat, index) => (
-          <button 
-            data-category={cat}
-            class={`filter-btn whitespace-nowrap capitalize transition-all duration-200 pb-4 -mb-4.25 border-b-2 font-medium shrink-0 ${index === 0 ? 'text-black border-black' : 'border-transparent hover:text-black'}`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+	<div class="border-b border-gray-100 mb-8 sticky top-16.25 bg-white/95 backdrop-blur-sm z-40 dark:bg-[#121212] dark:border-gray-700">
+		<div class="max-w-298 mx-auto relative group">
+			<div id="category-nav" class="flex gap-6 overflow-x-auto no-scrollbar py-4 px-4 pr-20 text-sm text-gray-500 dark:text-gray-400 scroll-smooth">
+				{
+					categories.map((cat, index) => (
+						<button
+							data-category={cat}
+							class={`filter-btn whitespace-nowrap capitalize transition-all duration-200 pb-4 -mb-4.25 border-b-2 font-medium shrink-0 dark:text-gray-400 dark:hover:text-white cursor-pointer
+              ${index === 0 ? 'text-black border-black dark:text-white dark:border-white ' : 'border-transparent hover:text-black '}`}>
+							{cat}
+						</button>
+					))
+				}
+			</div>
+		</div>
+	</div>
 
-    </div>
-  </div>
+	<div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-15">
+		{
+			posts.map(post => (
+				<a
+					href={`/blog/${post.id}`}
+					data-category={post.data.category}
+					class="post-card group flex flex-col cursor-pointer transition-all duration-300">
+					<div class="aspect-video mb-4 overflow-hidden bg-gray-100 rounded-sm">
+						{post.data.heroImage && (
+							<img src={post.data.heroImage} alt={post.data.title} class="w-full aspect-video object-cover rounded-xs mb-10 shadow-lg" />
+						)}
+					</div>
+					<div class="flex items-center gap-2 mb-2">
+						<span class="text-[10px] font-bold uppercase tracking-widest text-indigo-600">{post.data.category}</span>
+						<span class="text-gray-300">·</span>
+						<time class="text-xs text-gray-500">{post.data.pubDate.toLocaleDateString('fr-FR', { month: 'short', day: 'numeric' })}</time>
+					</div>
 
-  <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-15 ">
-    {posts.map((post) => (
-      <a 
-        href={`/blog/${post.id}`} 
-        data-category={post.data.category}
-        class="post-card group flex flex-col cursor-pointer transition-all duration-300"
-      >
+					<h2 class="text-xl font-bold font-['Source_Serif_4'] leading-tight mb-2 group-hover:text-gray-600 transition-colors dark:group-hover:text-gray-300">
+						{post.data.title}
+					</h2>
 
+					<p class="text-gray-500 text-sm line-clamp-3 font-['Source_Serif_4'] leading-relaxed mb-5">{post.data.description}</p>
+					<div class="mt-auto flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black dark:text-white group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
+						En savoir plus
+						<span class="transform group-hover:translate-x-1 transition-transform duration-200  mb-1">→</span>
+					</div>
+				</a>
+			))
+		}
+	</div>
 
-        <div class="aspect-video mb-4 overflow-hidden bg-gray-100 rounded-sm">
-   {post.data.heroImage && (
-    <img 
-        src={post.data.heroImage} 
-        alt={post.data.title} 
-        class="w-full aspect-video object-cover rounded-xs mb-10 shadow-lg" 
-    />
-)}
-  </div>
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-600">
-            {post.data.category}
-          </span>
-          <span class="text-gray-300">·</span>
-          <time class="text-xs text-gray-500">
-            {post.data.pubDate.toLocaleDateString('fr-FR', { month: 'short', day: 'numeric' })}
-          </time>
-        </div>
-
-        <h2 class="text-xl font-bold font-['Source_Serif_4'] leading-tight mb-2 group-hover:text-gray-600 transition-colors">
-          {post.data.title}
-        </h2>
-
-        <p class="text-gray-500 text-sm line-clamp-3 font-['Source_Serif_4'] leading-relaxed mb-5">
-          {post.data.description}
-        </p>
-        <div class="mt-auto flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black">
-          En savoir plus 
-          <span class="transform group-hover:translate-x-1 transition-transform duration-200  mb-1">→</span>
-        </div>
-      </a>
-    ))}
-  </div>
+	<div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-center">
+		<div class="text-4xl mb-4">🌵</div>
+		<h3 class="text-xl font-bold font-['Source_Serif_4'] dark:text-white">Silence radio...</h3>
+		<p class="text-gray-500 dark:text-gray-400 max-w-xs mx-auto mt-2">
+			Il n'y a pas encore d'articles dans cette catégorie. Phénix est en train de couver de nouveaux sujets.
+		</p>
+	</div>
 </Layout>
 
 <script>
-  const nav = document.getElementById('category-nav');
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const postCards = document.querySelectorAll('.post-card');
+	const nav = document.getElementById('category-nav');
+	const filterButtons = document.querySelectorAll('.filter-btn');
+	const postCards = document.querySelectorAll('.post-card');
 
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetCat = btn.getAttribute('data-category');
+	filterButtons.forEach(btn => {
+		btn.addEventListener('click', () => {
+			const targetCat = btn.getAttribute('data-category');
 
-      // 1. Gérer l'état visuel (soulignement noir)
-      filterButtons.forEach(b => {
-        b.classList.remove('text-black', 'border-black');
-        b.classList.add('border-transparent', 'text-gray-500');
-      });
-      btn.classList.add('text-black', 'border-black');
-      btn.classList.remove('border-transparent', 'text-gray-500');
+			// 1. Gérer l'état visuel (soulignement noir)
+			filterButtons.forEach(b => {
+				b.classList.remove('text-black', 'border-black', 'dark:text-white', 'dark:border-white');
+				// On remet l'état inactif
+				b.classList.add('border-transparent', 'text-gray-500', 'dark:text-gray-400');
+			});
+			btn.classList.add('text-black', 'border-black', 'dark:text-white', 'dark:border-white');
+			btn.classList.remove('border-transparent', 'text-gray-500', 'dark:text-gray-400');
+			// 2. Faire défiler le topic cliqué vers le centre de la barre
+			btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 
-      // 2. Faire défiler le topic cliqué vers le centre de la barre
-      btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+			// 3. Filtrage dynamique
+			postCards.forEach(card => {
+				const cardCat = card.getAttribute('data-category');
+				if (targetCat === 'Tous' || cardCat === targetCat) {
+					(card as HTMLElement).style.display = 'flex';
+					(card as HTMLElement).style.opacity = '1';
+				} else {
+					(card as HTMLElement).style.display = 'none';
+					(card as HTMLElement).style.opacity = '0';
+				}
+			});
+		});
+	});
 
-      // 3. Filtrage dynamique
-      postCards.forEach(card => {
-        const cardCat = card.getAttribute('data-category');
-        if (targetCat === "Tous" || cardCat === targetCat) {
-          (card as HTMLElement).style.display = 'flex';
-          (card as HTMLElement).style.opacity = '1';
-        } else {
-          (card as HTMLElement).style.display = 'none';
-          (card as HTMLElement).style.opacity = '0';
-        }
-      });
-    });
-  });
+	// Support de la molette pour le défilement horizontal
+	nav?.addEventListener(
+		'wheel',
+		e => {
+			if (e.deltaY !== 0) {
+				e.preventDefault();
+				// Utilise scrollTo pour un contrôle plus fin si nécessaire
+				nav.scrollBy({
+					left: e.deltaY * 2, // Multiplie pour ajuster la vitesse
+					behavior: 'smooth',
+				});
+			}
+		},
+		{ passive: false }
+	);
 
-  // Support de la molette pour le défilement horizontal
-  nav?.addEventListener('wheel', (e) => {
-    if (e.deltaY !== 0) {
-      e.preventDefault();
-      nav.scrollLeft += e.deltaY;
-    }
-  });
+	const emptyState = document.getElementById('empty-state');
+
+	filterButtons.forEach(btn => {
+		btn.addEventListener('click', () => {
+			const targetCat = btn.getAttribute('data-category');
+			let visibleCount = 0; // Compteur pour l'état vide
+
+			// 1. État visuel des boutons (ton code existant)
+			// ...
+
+			// 2. Filtrage dynamique
+			postCards.forEach(card => {
+				const cardCat = card.getAttribute('data-category');
+				const htmlCard = card as HTMLElement;
+
+				if (targetCat === 'Tous' || cardCat === targetCat) {
+					htmlCard.style.display = 'flex';
+					htmlCard.style.opacity = '1';
+					visibleCount++; // On incrémente si on affiche
+				} else {
+					htmlCard.style.display = 'none';
+					htmlCard.style.opacity = '0';
+				}
+			});
+
+			// 3. Gestion de l'Empty State
+			if (visibleCount === 0) {
+				emptyState?.classList.remove('hidden');
+				emptyState?.classList.add('flex');
+				document.getElementById('posts-grid')?.classList.add('hidden');
+			} else {
+				emptyState?.classList.add('hidden');
+				emptyState?.classList.remove('flex');
+				document.getElementById('posts-grid')?.classList.remove('hidden');
+			}
+		});
+	});
 </script>
 
 <style>
-  /* Supprime la barre de défilement moche tout en gardant le scroll */
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  
-  /* Ajoute un petit fondu pour indiquer qu'il y a plus de thèmes à droite */
-  #category-nav {
-    mask-image: linear-gradient(to right, black 85%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-  }
+	/* Supprime la barre de défilement moche tout en gardant le scroll */
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	/* Ajoute un petit fondu pour indiquer qu'il y a plus de thèmes à droite */
+	#category-nav {
+		mask-image: linear-gradient(to right, black 85%, transparent 100%);
+		-webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+		display: flex;
+		gap: 1.5rem;
+		overflow-x: auto;
+		scroll-behavior: smooth; /* Défilement fluide pour le JS */
+		-webkit-overflow-scrolling: touch; /* Inertie sur iOS */
+		scroll-snap-type: x mandatory; /* Force l'alignement */
+	}
+	.filter-btn {
+		scroll-snap-align: center; /* Aligne le bouton au centre lors du scroll */
+	}
+	#category-nav {
+		/* Masque progressif à gauche et à droite */
+		mask-image: linear-gradient(to right, transparent, black 5%, black 90%, transparent);
+		-webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 90%, transparent);
+	}
 </style>

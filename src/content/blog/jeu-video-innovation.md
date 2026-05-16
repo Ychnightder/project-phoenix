@@ -1,4 +1,3 @@
-
 ---
 title: "Le Futur du Jeu"
 pubDate: "2026-05-11T09:49:34.569Z"

@@ -1,0 +1,163 @@
+<div id="newsletter-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
+	<div
+		class="bg-white dark:bg-[#1a1a1a] w-full max-w-md rounded-2xl shadow-2xl overflow-hidden transform transition-all border border-gray-200 dark:border-gray-800">
+		<div class="bg-indigo-600 p-6 text-center text-white">
+			<div class="text-4xl mb-2">🔥</div>
+			<h2 class="text-2xl font-bold">Rejoignez Phénix</h2>
+			<p class="text-indigo-100 text-sm">La veille IA qui ne dort jamais.</p>
+		</div>
+
+		<div class="p-8">
+			<div id="subscription-ui">
+				<form id="modal-form" class="space-y-4">
+					<div>
+						<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Votre email professionnel</label>
+						<input
+							type="email"
+							name="email"
+							required
+							placeholder="pierre@exemple.fr"
+							class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 dark:bg-[#0f0f0f] dark:text-white focus:ring-2 focus:ring-indigo-600 outline-none transition-all"
+						/>
+					</div>
+
+					<button
+						type="submit"
+						id="modal-submit"
+						class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-all active:scale-95 cursor-pointer">
+						S'abonner gratuitement
+					</button>
+				</form>
+
+				<div id="unsubscribe-section" class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 text-center">
+					<button id="show-unsubscribe" class="text-xs text-gray-400 cursor-pointer hover:underlinetransition-colors">
+						Je souhaite me désabonner
+					</button>
+				</div>
+			</div>
+
+			<div id="unsubscribe-form-container" class="hidden space-y-4">
+				<h3 class="text-lg font-bold dark:text-white">Désinscription</h3>
+				<p class="text-xs text-gray-500">Saisissez votre email pour recevoir un lien de confirmation de suppression.</p>
+				<form id="unsub-form" class="space-y-4">
+					<input
+						type="email"
+						name="email"
+						required
+						placeholder="votre@email.com"
+						class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 dark:bg-[#0f0f0f] dark:text-white outline-none focus:ring-2 focus:ring-indigo-100"
+					/>
+					<button
+						type="submit"
+						class="w-full bg-gray-100 dark:bg-gray-800 py-3 rounded-xl text-sm font-bold dark:text-white hover:bg-indigo-100 text-indigo-600 transition-colors cursor-pointer">
+						Envoyer le lien de vérification
+					</button>
+				</form>
+				<div class="text-center">
+					<button id="back-to-sub" class="text-xs text-indigo-600 hover:underline cursor-pointer">Retour à l'inscription</button>
+				</div>
+			</div>
+
+			<p id="modal-status" class="hidden mt-4 text-center text-sm font-medium"></p>
+
+			<button id="close-modal" class="mt-6 w-full text-gray-500 dark:text-gray-400 text-xs hover:underline uppercase tracking-widest cursor-pointer">
+				Peut-être plus tard
+			</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	const modal = document.getElementById('newsletter-modal');
+	const closeBtn = document.getElementById('close-modal');
+	const subUi = document.getElementById('subscription-ui');
+	const unsubUi = document.getElementById('unsubscribe-form-container');
+	const subForm = document.getElementById('modal-form') as HTMLFormElement;
+	const unsubForm = document.getElementById('unsub-form') as HTMLFormElement;
+	const status = document.getElementById('modal-status');
+	const submitBtn = document.getElementById('modal-submit') as HTMLButtonElement;
+	const openFromMenu = document.getElementById('open-newsletter');
+
+	// Ouverture automatique (15s) ou via menu
+	const showModal = () => modal?.classList.remove('hidden');
+
+	window.addEventListener('load', () => {
+		if (!localStorage.getItem('phoenix_subscribed')) {
+			setTimeout(showModal, 60000);
+		}
+	});
+
+	openFromMenu?.addEventListener('click', e => {
+		e.preventDefault();
+		showModal();
+	});
+
+	closeBtn?.addEventListener('click', () => modal?.classList.add('hidden'));
+
+	// Navigation entre Inscription / Désinscription
+	document.getElementById('show-unsubscribe')?.addEventListener('click', () => {
+		subUi?.classList.add('hidden');
+		unsubUi?.classList.remove('hidden');
+	});
+
+	document.getElementById('back-to-sub')?.addEventListener('click', () => {
+		unsubUi?.classList.add('hidden');
+		subUi?.classList.remove('hidden');
+	});
+
+	// Traitement Inscription
+	subForm?.addEventListener('submit', async e => {
+		e.preventDefault();
+		if (submitBtn) {
+			submitBtn.disabled = true;
+			submitBtn.innerText = 'Inscription...';
+		}
+
+		try {
+			const res = await fetch('/api/subscribe', {
+				method: 'POST',
+				body: new FormData(subForm),
+			});
+			const data = await res.json();
+
+			if (res.ok) {
+				if (status) {
+					status.innerText = '✅ Bienvenue dans la renaissance !';
+					status.className = 'mt-4 text-center text-sm font-medium text-green-600';
+					status.classList.remove('hidden');
+				}
+				localStorage.setItem('phoenix_subscribed', 'true');
+				setTimeout(() => modal?.classList.add('hidden'), 2000);
+			} else {
+				throw new Error(data.message);
+			}
+		} catch (err: any) {
+			if (status) {
+				status.innerText = `❌ ${err.message}`;
+				status.className = 'mt-4 text-center text-sm font-medium text-red-600';
+				status.classList.remove('hidden');
+			}
+		} finally {
+			if (submitBtn) {
+				submitBtn.disabled = false;
+				submitBtn.innerText = "S'abonner gratuitement";
+			}
+		}
+	});
+
+	// Traitement Désinscription
+	unsubForm?.addEventListener('submit', async e => {
+		e.preventDefault();
+		try {
+			const res = await fetch('/api/unsubscribe-request', {
+				method: 'POST',
+				body: new FormData(unsubForm),
+			});
+			const data = await res.json();
+			alert(data.message);
+			if (res.ok) modal?.classList.add('hidden');
+		} catch (err) {
+			alert('Erreur lors de la demande');
+		}
+	});
+</script>

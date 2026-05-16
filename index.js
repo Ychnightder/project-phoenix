@@ -2,9 +2,11 @@ import { searchNews } from './src/agents/scout.js';
 import { generateArticle } from './src/agents/architect.js';
 import { generateHeroImage } from './src/agents/imager.js';
 import { deploy } from './src/agents/publisher.js';
+import { phoenixAgent } from './src/pages/api/mailer.ts';
 import fs from 'fs';
 import path from 'path';
 import { topics } from './src/config.js';
+// // import { runMailer } from './src/pages/api/mailer.js';
 
 async function main() {
 	try {
@@ -38,9 +40,8 @@ async function main() {
 				const fileName = `${article.slug}.md`;
 				const filePath = path.join(blogDir, fileName);
 
-				// --- CORRECTION : AJOUT DE heroImage DANS LE FRONTMATTER ---
-				const content = `
----
+			// --- CORRECTION : AJOUT DE heroImage DANS LE FRONTMATTER ---
+			const content = `---
 title: "${article.title.replace(/"/g, "'")}"
 pubDate: "${new Date().toISOString()}"
 description: "Analyse sur ${article.title.replace(/"/g, "'")}"
@@ -58,8 +59,13 @@ ${article.body}
 				continue;
 			}
 		}
+
 		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
-		  await deploy();
+		// // await deploy();
+
+		console.log('📧 Lancement de la diffusion newsletter...');
+
+		await phoenixAgent();
 	} catch (error) {
 		await deploy();
 		console.error('💀 Pipeline crash:', error);

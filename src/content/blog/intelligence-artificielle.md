@@ -1,4 +1,3 @@
-
 ---
 title: "Le piège de la crédibilité artificielle"
 pubDate: "2026-05-11T10:19:10.675Z"

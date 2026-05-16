@@ -29,4 +29,45 @@ export const topics = [
 	'Innovation et Startups',
 	'Alimentation et Agriculture',
 	'Voyages et Tourisme',
+	'Histoire et Culture',
+	'Philosophie et Société',
+	'Langues et Communication',
+	'Droit et Éthique',
+	'Psychologie et Comportement',
+	'Économie et Marchés',
+	'Technologie et Futur',
+	'Santé et Bien-être',
+	'Environnement et Climat',
+	'Science et Découvertes',
+	'Culture Pop et Divertissement',
+	'Sport et Performance',
+	'Finance et Investissement',
+	'Politique et Société',
+	'Technologie et Innovation',
+	'Voyages et Aventure',
+	'Histoire et Patrimoine',
+	'Philosophie et Réflexion',
+	'Droit et Justice',
+	'Psychologie et Développement Personnel',
+	
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+	
+
+	
+	
+
+
 ];

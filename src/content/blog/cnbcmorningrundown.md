@@ -1,4 +1,3 @@
-
 ---
 title: "The Late Morning Rundown"
 pubDate: "2026-05-12T09:20:51.895Z"

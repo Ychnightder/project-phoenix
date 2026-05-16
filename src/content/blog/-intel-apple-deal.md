@@ -1,4 +1,3 @@
-
 ---
 title: "** Intel's Comeback Story
 **"

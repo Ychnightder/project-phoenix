@@ -1,4 +1,3 @@
-
 ---
 title: "Le Met affirme la mode"
 pubDate: "2026-05-12T07:18:18.956Z"

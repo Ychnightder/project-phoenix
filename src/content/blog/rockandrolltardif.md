@@ -1,4 +1,3 @@
-
 ---
 title: "Le génie du rock and roll tardif"
 pubDate: "2026-05-12T00:52:25.214Z"

@@ -1,4 +1,3 @@
-
 ---
 title: "Brexit et Politique Britannique"
 pubDate: "2026-05-12T09:21:19.569Z"

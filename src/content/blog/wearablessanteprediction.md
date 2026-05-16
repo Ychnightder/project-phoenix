@@ -1,4 +1,3 @@
-
 ---
 title: "Prédiction de maladies grâce aux wearables"
 pubDate: "2026-05-12T00:04:55.923Z"
