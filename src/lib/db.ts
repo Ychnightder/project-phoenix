@@ -1,8 +1,4 @@
 import { createClient } from '@libsql/client';
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import path from 'path';
-
 
 if (typeof process !== 'undefined' && process.env && !process.env.VERCEL) {
     try {
