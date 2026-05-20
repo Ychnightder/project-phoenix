@@ -1,15 +1,8 @@
 export const prerender = false;
-import dotenv from 'dotenv';
 import type { APIRoute } from 'astro';
 import { db } from '../../lib/db';
-import path from 'path';
 import nodemailer from 'nodemailer';
-import { fileURLToPath } from 'url';
 
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 export const POST: APIRoute = async ({ request }) => {
 	const data = await request.formData();
@@ -25,9 +18,13 @@ export const POST: APIRoute = async ({ request }) => {
 		return new Response(JSON.stringify({ message: 'Email non trouvé' }), { status: 404 });
 	}
 
-	// 2. Générer un lien de vérification (on utilise l'email encodé pour faire simple)
+	// 2. Générer un lien de vérification dynamique
+	// On extrait l'origine (ex: http://localhost:4321 ou https://project-phoenix.com) depuis la requête reçue
+	const urlObj = new URL(request.url);
+	const origin = urlObj.origin;
+
 	const token = btoa(email);
-	const confirmLink = `${import.meta.env.SITE_URL}/api/confirm-unsubscribe?token=${token}`;
+	const confirmLink = `${origin}/api/confirm-unsubscribe?token=${token}`;
 
 	// 3. Envoyer le mail de vérification
 	const transporter = nodemailer.createTransport({
@@ -42,10 +39,9 @@ export const POST: APIRoute = async ({ request }) => {
 		to: email,
 		subject: 'Confirmation de désabonnement',
 		html: `
-			
             <p>Vous avez demandé à ne plus recevoir la newsletter Phénix.</p>
             <p>Pour confirmer cette action, veuillez cliquer sur le lien ci-dessous :</p>
-            <a href="${confirmLink}" style="color: #ef4444;">Confirmer la désinscription</a>
+            <p><a href="${confirmLink}" style="color: #ef4444; font-weight: bold;">Confirmer la désinscription</a></p>
             <p>Si vous n'êtes pas à l'origine de cette demande, ignorez ce mail.</p>
         `,
 	});
