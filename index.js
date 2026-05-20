@@ -25,7 +25,7 @@ async function main() {
 				if (!article) {
 					console.log(`⏭️ News suivante...`);
 					continue; // Passe à l'item suivant dans newsList
-            	}
+				}
 
 				// console.log('🖋️ Article généré :', article);
 
@@ -40,8 +40,8 @@ async function main() {
 				const fileName = `${article.slug}.md`;
 				const filePath = path.join(blogDir, fileName);
 
-			// --- CORRECTION : AJOUT DE heroImage DANS LE FRONTMATTER ---
-			const content = `---
+				// --- CORRECTION : AJOUT DE heroImage DANS LE FRONTMATTER ---
+				const content = `---
 title: "${article.title.replace(/"/g, "'")}"
 pubDate: "${new Date().toISOString()}"
 description: "Analyse sur ${article.title.replace(/"/g, "'")}"
@@ -54,6 +54,8 @@ ${article.body}
 
 				fs.writeFileSync(filePath, content);
 				console.log(`📝 Article sauvegardé avec image : ${fileName}`);
+
+				break; // On arrête après le premier article réussi pour éviter de surcharger l'API et le processus
 			} catch (error) {
 				console.error(`⚠️ Erreur sur cet item mais on continue :`, itemError.message);
 				continue;
@@ -63,9 +65,9 @@ ${article.body}
 		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
 		// // await deploy();
 
-		console.log('📧 Lancement de la diffusion newsletter...');
+		// console.log('📧 Lancement de la diffusion newsletter...');
 
-		await phoenixAgent();
+		// await phoenixAgent();
 	} catch (error) {
 		await deploy();
 		console.error('💀 Pipeline crash:', error);

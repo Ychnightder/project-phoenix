@@ -1,14 +1,6 @@
 export const prerender = false;
 import type { APIRoute } from 'astro';
 import { db } from '../../lib/db';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 export const GET: APIRoute = async ({ url }) => {
 	const token = url.searchParams.get('token');
@@ -23,7 +15,6 @@ export const GET: APIRoute = async ({ url }) => {
 			args: [email],
 		});
 
-		localStorage.removeItem('phoenix_subscribed');
 
 		return new Response(
 			`
