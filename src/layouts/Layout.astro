@@ -101,29 +101,60 @@ const adCount = Array.from({ length: 0 });
 	</head>
 	<body class="bg-white text-[#121212] dark:bg-[#121212] dark:text-gray-100 font-['Inter'] antialiased">
 		<NewsletterModal />
-		<nav
-			class="h-16.25 border-b border-gray-100 sticky top-0 bg-white/95 dark:bg-[#121212] dark:text-gray-100 dark:border-gray-700 backdrop-blur-sm z-50">
-			<div class="max-w-298 mx-auto px-6 h-full flex items-center justify-between">
+		<nav class="h-16.25 border-b border-gray-100 sticky top-0 bg-white/95 dark:bg-[#121212] dark:text-gray-100 dark:border-gray-700 backdrop-blur-sm z-50">
+			<div class="max-w-298 mx-auto px-6 h-full flex items-center justify-between relative">
+				
+				<!-- --- LOGO --- -->
 				<a href="/" class="text-2xl font-bold tracking-tighter hover:opacity-80 transition-opacity">Phénix.</a>
-				<div class="hidden md:flex gap-6 text-sm font-medium text-gray-500">
+
+				<!-- --- MENU DESKTOP --- -->
+				<div class="hidden md:flex gap-6 text-sm font-medium text-gray-500 dark:text-gray-400 items-center">
 					<span>|</span>
-					<a href="/" class="hover:text-black dark:hover:text-gray-100">Accueil</a>
+					<a href="/" class="hover:text-black dark:hover:text-gray-100 transition-colors">Accueil</a>
 					<span>|</span>
-					<a href="/contact" class="hover:text-black dark:hover:text-gray-100">Contact</a>
+					<a href="/contact" class="hover:text-black dark:hover:text-gray-100 transition-colors">Contact</a>
 					<span>|</span>
-					<button id="open-newsletter" class="hover:text-black dark:hover:text-gray-100 cursor-pointer transition-colors"> Newsletter </button>
+					<button id="open-newsletter" class="hover:text-black dark:hover:text-gray-100 cursor-pointer transition-colors">Newsletter</button>
 					<span>|</span>
 				</div>
-				<button
-					id="themeToggle"
-					class="group relative flex items-center justify-center w-8 h-8 sm:w-11 sm:h-11 rounded-full border border-gray-400 bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300 cursor-pointer hover:scale-105 hover:bg-gray-100 hover:shadow-md dark:border-gray-700 dark:bg-[#1e1e1e]/80 dark:hover:bg-[#2a2a2a]"
-					aria-label="Changer le thème">
-					<!-- Icône lune -->
-					<span class="absolute text-lg transition-all duration-300 rotate-0 scale-100 dark:-rotate-90 dark:scale-0"> 🌙 </span>
+				
+				<!-- --- ACTIONS EN CARTES (Thème + Hamburger) --- -->
+				<div class="flex items-center gap-4 z-50">
+					<!-- Bouton Thème (Accessible sur tous les écrans) -->
+					<button
+						id="themeToggle"
+						class="group relative flex items-center justify-center w-8 h-8 sm:w-11 sm:h-11 rounded-full border border-gray-400 bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300 cursor-pointer hover:scale-105 hover:bg-gray-100 hover:shadow-md dark:border-gray-700 dark:bg-[#1e1e1e]/80 dark:hover:bg-[#2a2a2a]"
+						aria-label="Changer le thème">
+						<!-- Icône lune -->
+						<span class="absolute text-base sm:text-lg transition-all duration-300 rotate-0 scale-100 dark:-rotate-90 dark:scale-0"> 🌙 </span>
+						<!-- Icône soleil -->
+						<span class="absolute text-base sm:text-lg transition-all duration-300 rotate-90 scale-0 dark:rotate-0 dark:scale-100"> ☀️ </span>
+					</button>
 
-					<!-- Icône soleil -->
-					<span class="absolute text-lg transition-all duration-300 rotate-90 scale-0 dark:rotate-0 dark:scale-100"> ☀️ </span>
-				</button>
+					<!-- Bouton Hamburger (Visible uniquement sur mobile) -->
+					<button 
+						id="mobile-menu-button" 
+						class="flex md:hidden flex-col justify-center items-center w-8 h-8 gap-1.5 text-gray-500 hover:text-black dark:hover:text-gray-100 cursor-pointer"
+						aria-label="Ouvrir le menu"
+					>
+						<span class="w-6 h-0.5 bg-current transform transition-all duration-300 origin-center id-bar-1"></span>
+						<span class="w-6 h-0.5 bg-current transition-all duration-300 id-bar-2"></span>
+						<span class="w-6 h-0.5 bg-current transform transition-all duration-300 origin-center id-bar-3"></span>
+					</button>
+				</div>
+
+				<!-- --- DROPDOWN TIROIR MOBILE --- -->
+				<div 
+    id="mobile-menu" 
+    class="hidden fixed top-[65px] left-0 w-full h-[calc(100vh-65px)] bg-white/95 dark:bg-[#121212]/95 backdrop-blur-md z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col items-center justify-start pt-16 gap-8 text-lg font-semibold text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-800"
+>
+    <a href="/" class="hover:text-black dark:hover:text-gray-100 transition-colors w-full text-center py-2">Accueil</a>
+    <a href="/contact" class="hover:text-black dark:hover:text-gray-100 transition-colors w-full text-center py-2">Contact</a>
+    <button id="open-newsletter-mobile" class="hover:text-black dark:hover:text-gray-100 cursor-pointer transition-colors w-full text-center py-2">
+        Newsletter
+    </button>
+</div>
+
 			</div>
 		</nav>
 		<main class="flex justify-center gap-8 px-4 sm:px-10 py-12">
@@ -175,5 +206,55 @@ const adCount = Array.from({ length: 0 });
 			const modal = document.getElementById('newsletter-modal');
 			modal?.classList.remove('hidden');
 		});
+
+
+	const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    const bar1 = menuButton?.querySelector('.id-bar-1');
+    const bar2 = menuButton?.querySelector('.id-bar-2');
+    const bar3 = menuButton?.querySelector('.id-bar-3');
+
+    menuButton?.addEventListener('click', () => {
+        if (mobileMenu) {
+            // Si le menu contient "hidden", on le passe en "flex" avant l'animation
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+                // Petit timeout pour laisser le navigateur enregistrer le display:flex avant la transition
+                setTimeout(() => {
+                    mobileMenu.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                // Si on ferme, on fait d'abord la transition vers la droite
+                mobileMenu.classList.add('translate-x-full');
+                // Puis on le cache complètement après la fin de l'animation (300ms)
+                setTimeout(() => {
+                    mobileMenu.classList.remove('flex');
+                    mobileMenu.classList.add('hidden');
+                }, 300);
+            }
+        }
+        
+        // Animation du bouton Hamburger vers une croix (X)
+        bar1?.classList.toggle('rotate-45');
+        bar1?.classList.toggle('translate-y-2');
+        
+        bar2?.classList.toggle('opacity-0');
+        
+        bar3?.classList.toggle('-rotate-45');
+        bar3?.classList.toggle('-translate-y-2');
+        
+        document.body.classList.toggle('overflow-hidden');
+    });
+
+    // Gestion de la newsletter sur mobile
+    const newsletterMobileBtn = document.getElementById('open-newsletter-mobile');
+    newsletterMobileBtn?.addEventListener('click', () => {
+        menuButton?.click();
+        setTimeout(() => {
+            document.getElementById('open-newsletter')?.click();
+        }, 350); // Ajusté à 350ms pour attendre la disparition complète du volet
+    });
 	</script>
 </html>
