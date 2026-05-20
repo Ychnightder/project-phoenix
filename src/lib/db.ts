@@ -21,7 +21,7 @@ if (!url) {
 }
 
 export const db = createClient({
-	url: url ?? 'file:local.db', // Utilise un fichier local si l'URL Turso est absente
+	url: url , // Utilise un fichier local si l'URL Turso est absente
 	authToken: authToken,
 });
 
