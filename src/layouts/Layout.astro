@@ -37,17 +37,27 @@ const adCount = Array.from({ length: 0 });
 		<meta name="description" content={description} />
 
 		<meta property="og:type" content={articleDate ? 'article' : 'website'} />
-		<meta property="og:url" content={Astro.url} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content={image} />
-		{articleDate && <meta property="article:published_time" content={articleDate.toISOString()} />}
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        
+        <meta property="og:image" content={new URL(image, Astro.url).href} />
+        
+        {articleDate && <meta property="article:published_time" content={articleDate.toISOString()} />}
+        
+        {articleDate && (
+            <>
+                <meta property="article:author" content="Phénix Blog" />
+                <meta property="article:section" content="Technology" />
+            </>
+        )}
 
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={Astro.url} />
-		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={image} />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        
+        <meta property="twitter:image" content={new URL(image, Astro.url).href} />
 
 		<meta name="pinterest-rich-pin" content="true" />
 		<link rel="alternate" type="application/rss+xml" title="Phénix Blog RSS Feed" href={`${Astro.site}rss.xml`} />
