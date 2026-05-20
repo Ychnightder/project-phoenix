@@ -63,7 +63,7 @@ ${article.body}
 		}
 
 		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
-		 await deploy();
+		//  await deploy();
 
 		// console.log('📧 Lancement de la diffusion newsletter...');
 
