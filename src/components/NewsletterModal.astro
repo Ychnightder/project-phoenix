@@ -76,9 +76,12 @@
 	const unsubForm = document.getElementById('unsub-form') as HTMLFormElement;
 	const status = document.getElementById('modal-status');
 	const submitBtn = document.getElementById('modal-submit') as HTMLButtonElement;
-	const openFromMenu = document.getElementById('open-newsletter');
 
-	// Ouverture automatique (15s) ou via menu
+	// On sélectionne les boutons desktop ET mobile
+	const openFromMenu = document.getElementById('open-newsletter');
+	const openFromMenuMobile = document.getElementById('open-newsletter-mobile');
+
+	// Ouverture automatique (60s) ou manuelle
 	const showModal = () => modal?.classList.remove('hidden');
 
 	window.addEventListener('load', () => {
@@ -87,22 +90,38 @@
 		}
 	});
 
+	// Écouteur sur le menu Desktop
 	openFromMenu?.addEventListener('click', e => {
+		e.preventDefault();
+		showModal();
+	});
+
+	// ✅ Ajout de l'écouteur sur le menu Mobile pour éviter les conflits d'ouverture
+	openFromMenuMobile?.addEventListener('click', e => {
 		e.preventDefault();
 		showModal();
 	});
 
 	closeBtn?.addEventListener('click', () => modal?.classList.add('hidden'));
 
+	// Fermeture alternative en cliquant sur le fond flouté de la modal
+	modal?.addEventListener('click', e => {
+		if (e.target === modal) {
+			modal.classList.add('hidden');
+		}
+	});
+
 	// Navigation entre Inscription / Désinscription
 	document.getElementById('show-unsubscribe')?.addEventListener('click', () => {
 		subUi?.classList.add('hidden');
 		unsubUi?.classList.remove('hidden');
+		if (status) status.classList.add('hidden'); // Nettoie les anciens messages
 	});
 
 	document.getElementById('back-to-sub')?.addEventListener('click', () => {
 		unsubUi?.classList.add('hidden');
 		subUi?.classList.remove('hidden');
+		if (status) status.classList.add('hidden');
 	});
 
 	// Traitement Inscription
@@ -118,7 +137,9 @@
 				method: 'POST',
 				body: new FormData(subForm),
 			});
-			const data = await res.json();
+
+			// Sécurité anti "Unexpected end of JSON input" au cas où le serveur crache une 500 HTML
+			const data = await res.json().catch(() => ({ message: "Format de réponse invalide de l'API." }));
 
 			if (res.ok) {
 				if (status) {
@@ -127,9 +148,12 @@
 					status.classList.remove('hidden');
 				}
 				localStorage.setItem('phoenix_subscribed', 'true');
-				setTimeout(() => modal?.classList.add('hidden'), 2000);
+				setTimeout(() => {
+					modal?.classList.add('hidden');
+					subForm.reset();
+				}, 2000);
 			} else {
-				throw new Error(data.message);
+				throw new Error(data.message || "Une erreur est survenue lors de l'inscription.");
 			}
 		} catch (err: any) {
 			if (status) {
@@ -153,11 +177,14 @@
 				method: 'POST',
 				body: new FormData(unsubForm),
 			});
-			const data = await res.json();
-			alert(data.message);
-			if (res.ok) modal?.classList.add('hidden');
+			const data = await res.json().catch(() => ({ message: 'Erreur lors du traitement de votre demande.' }));
+			// alert(data.message);
+			if (res.ok) {
+				modal?.classList.add('hidden');
+				unsubForm.reset();
+			}
 		} catch (err) {
-			alert('Erreur lors de la demande');
+			// alert('Erreur lors de la demande');
 		}
 	});
 </script>
