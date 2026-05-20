@@ -3,6 +3,7 @@ import type { APIRoute } from 'astro';
 import { db, initNewsletterTable } from '../../lib/db';
 
 export const POST: APIRoute = async ({ request }) => {
+	const jsonHeader = { headers: { 'Content-Type': 'application/json' } };
 	try {
 		const data = await request.formData();
 		const email = data.get('email') as string;
