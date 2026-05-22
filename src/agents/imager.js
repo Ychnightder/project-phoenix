@@ -28,10 +28,10 @@ export async function generateHeroImage(keywords) {
 		}
 		console.warn(`⚠️ Aucun résultat pour "${keywords}", tentative avec un mot-clé générique...`);
 
-		return 'https://placehold.co/1920x1080'; // Image tech pro par défaut
+		return '/1920x1080.svg'; // Image tech pro par défaut
 	} catch (error) {
 		console.error('❌ Erreur API Unsplash :', error.message);
 		// Fallback sur une image tech générique si l'API échoue ou quota atteint
-		return 'https://placehold.co/1920x1080';
+				return '/1920x1080.svg';
 	}
 }

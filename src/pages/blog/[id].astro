@@ -24,8 +24,8 @@ const relatedPosts = allPosts
 	<div id="progress-container" class="fixed top-16.25 left-0 w-full h-1 bg-transparent z-60">
 		<div id="progress-bar" class="h-full bg-indigo-600 w-0 transition-all duration-150"></div>
 	</div>
-	<article class="max-w-180 mx-auto py-12 px-4">
-		<div class="mb-10">
+	<article class="mx-auto py-12 px-4 w-full">
+		<div class="mb-10 max-w-180 mx-auto">
 			<a
 				href="/"
 				class="flex items-center gap-2 text-sm text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors group">
@@ -45,7 +45,7 @@ const relatedPosts = allPosts
 				Retour à l'accueil
 			</a>
 		</div>
-		<header class="mb-12">
+		<header class="mb-12 max-w-180 mx-auto">
 			<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-gray-900 dark:text-gray-300">
 				{post.data.title}
 			</h1>
@@ -68,7 +68,7 @@ const relatedPosts = allPosts
 				<div class="flex sm:justify-end">
 					<button
 						id="shareBtn"
-						class="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-2.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-semibold cursor-pointer dark:text-white">
+						class="flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-2.5 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-semibold cursor-pointer dark:text-white double-click-ad">
 						<span>Partager l'article</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -91,85 +91,127 @@ const relatedPosts = allPosts
 		</header>
 
 		<img
-			src={post.data.heroImage || 'https://placehold.co/1920x1080'}
+			src={post.data.heroImage || '/public/1920x1080.svg'}
 			alt={post.data.title}
-			class="w-full aspect-video object-cover rounded-2xl shadow-xl mb-12"
+			class="w-full aspect-video object-cover rounded-2xl shadow-xl mb-12 max-w-180 mx-auto"
 			crossorigin="anonymous"
 		/>
 
-		<div
-			class="prose
-			prose-lg
-			prose-indigo
-			max-w-none
-			dark:prose-invert
-			prose-headings:font-bold
-			prose-a:text-indigo-600
-			hover:prose-a:text-indigo-500
-			dark:prose-a:text-indigo-400">
-			<Content />
+		<div class="gap-12 flex flex-col xl:flex-row justify-center ">
+			<div class="hidden xl:block sticky top-6 min-w-[160px] h-[600px] bg-gray-50/50 dark:bg-[#151515]/50 rounded-md">
+				<script is:inline>
+					window.atOptionsLeft = {
+						key: '482d887ca4f7414d4b9129d9a6514931',
+						format: 'iframe',
+						height: 600,
+						width: 160,
+						params: {},
+					};
+					window.atOptions = window.atOptionsLeft;
+				</script>
+				<script is:inline src="https://revolthem.com/482d887ca4f7414d4b9129d9a6514931/invoke.js"></script>
+			</div>
+
+			<div
+				class="prose prose-lg prose-indigo flex-1
+        dark:prose-invert
+        prose-headings:font-bold
+        prose-a:text-indigo-600
+        hover:prose-a:text-indigo-500
+        dark:prose-a:text-indigo-400 max-w-180 mx-auto">
+				<Content />
+			</div>
+
+			<div class="hidden xl:block sticky top-6 min-w-[160px] h-[600px] bg-gray-50/50 dark:bg-[#151515]/50 rounded-md">
+
+				<script is:inline>
+					window.atOptionsRight = {
+						key: '482d887ca4f7414d4b9129d9a6514931',
+						format: 'iframe',
+						height: 600,
+						width: 160,
+						params: {},
+					};
+					window.atOptions = window.atOptionsRight;
+				</script>
+				<script is:inline src="https://revolthem.com/482d887ca4f7414d4b9129d9a6514931/invoke.js"></script>
+			</div>
 		</div>
+
+		<div class="max-w-180 mx-auto my-4">
+			<script is:inline>
+				// window.atOptions indique clairement au navigateur qu'il s'agit d'une variable globale
+				window.atOptions = {
+					key: 'd2c1bb18057ecbdc57373aa0cf35ef3f',
+					format: 'iframe',
+					height: 90,
+					width: 728,
+					params: {},
+				};
+			</script>
+			<script is:inline src="https://revolthem.com/d2c1bb18057ecbdc57373aa0cf35ef3f/invoke.js"></script>
+		</div>
+
+		{
+			relatedPosts.length > 0 && (
+				<section class="mt-20 pt-10 border-t border-gray-100 dark:border-gray-800">
+					<h3 class="text-3xl font-extrabold  mb-8 dark:text-white">Dans la même catégorie</h3>
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+						{relatedPosts.map(p => (
+							<a href={`/blog/${p.id}`} class="group double-click-ad">
+								<img src={p.data.heroImage} class="aspect-video object-cover rounded-sm mb-4" />
+								<h3 class=" font-bold font-['Source_Serif_4'] leading-tight mb-2 group-hover:text-gray-600 transition-colors dark:group-hover:text-gray-300">
+									{p.data.title}
+								</h3>
+
+								<p class="text-gray-500 text-sm line-clamp-3 font-['Source_Serif_4'] leading-relaxed mb-5">{p.data.description}</p>
+								<div class="mt-auto flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black dark:text-white group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
+									En savoir plus
+									<span class="transform group-hover:translate-x-1 transition-transform duration-200  mb-1">→</span>
+								</div>
+							</a>
+						))}
+					</div>
+				</section>
+			)
+		}
+
+		<script>
+			window.addEventListener('scroll', () => {
+				const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+				const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+				const scrolled = (winScroll / height) * 100;
+				const bar = document.getElementById('progress-bar');
+				if (bar) bar.style.width = scrolled + '%';
+			});
+
+			const shareBtn = document.getElementById('shareBtn');
+			shareBtn?.addEventListener('click', async () => {
+				try {
+					await navigator.share({
+						title: document.title,
+						url: window.location.href,
+					});
+				} catch (err) {
+					console.log('Partage annulé ou non supporté');
+				}
+			});
+		</script>
+		<script
+			type="application/ld+json"
+			is:inline
+			set:html={JSON.stringify({
+				'@context': 'https://schema.org',
+				'@type': 'BlogPosting',
+				headline: post.data.title,
+				description: post.data.description,
+				image: post.data.heroImage,
+				datePublished: post.data.pubDate.toISOString(),
+				author: {
+					'@type': 'Organization',
+					name: 'Phénix AI',
+				},
+			})}
+		/>
 	</article>
-
-	{
-		relatedPosts.length > 0 && (
-			<section class="mt-20 pt-10 border-t border-gray-100 dark:border-gray-800">
-				<h3 class="text-2xl font-bold font-['Source_Serif_4'] mb-8 dark:text-white">Dans la même catégorie</h3>
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-					{relatedPosts.map(p => (
-						<a href={`/blog/${p.id}`} class="group">
-							<img src={p.data.heroImage} class="aspect-video object-cover rounded-sm mb-4" />
-							<h3 class=" font-bold font-['Source_Serif_4'] leading-tight mb-2 group-hover:text-gray-600 transition-colors dark:group-hover:text-gray-300">
-								{p.data.title}
-							</h3>
-
-							<p class="text-gray-500 text-sm line-clamp-3 font-['Source_Serif_4'] leading-relaxed mb-5">{p.data.description}</p>
-							<div class="mt-auto flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black dark:text-white group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
-								En savoir plus
-								<span class="transform group-hover:translate-x-1 transition-transform duration-200  mb-1">→</span>
-							</div>
-						</a>
-					))}
-				</div>
-			</section>
-		)
-	}
-
-	<script>
-		window.addEventListener('scroll', () => {
-			const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-			const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-			const scrolled = (winScroll / height) * 100;
-			const bar = document.getElementById('progress-bar');
-			if (bar) bar.style.width = scrolled + '%';
-		});
-
-		const shareBtn = document.getElementById('shareBtn');
-		shareBtn?.addEventListener('click', async () => {
-			try {
-				await navigator.share({
-					title: document.title,
-					url: window.location.href,
-				});
-			} catch (err) {
-				console.log('Partage annulé ou non supporté');
-			}
-		});
-	</script>
-	<script
-		type="application/ld+json"
-		is:inline
-		set:html={JSON.stringify({
-			'@context': 'https://schema.org',
-			'@type': 'BlogPosting',
-			headline: post.data.title,
-			description: post.data.description,
-			image: post.data.heroImage,
-			datePublished: post.data.pubDate.toISOString(),
-			author: {
-				'@type': 'Organization',
-				name: 'Phénix AI',
-			},
-		})}
-	/>
 </Layout>
