@@ -4,7 +4,6 @@ interface Props {
 	description?: string;
 	image?: string;
 	articleDate?: Date;
-
 }
 
 const {
@@ -17,7 +16,7 @@ const {
 import '../styles/global.css';
 import NewsletterModal from '../components/NewsletterModal.astro';
 import AdPlaceholder from '../components/AdPlaceholder.astro';
-const adCount = Array.from({ length: 0 });
+// const adCount = Array.from({ length: 0 });
 ---
 
 <html lang="fr">
@@ -37,27 +36,29 @@ const adCount = Array.from({ length: 0 });
 		<meta name="description" content={description} />
 
 		<meta property="og:type" content={articleDate ? 'article' : 'website'} />
-        <meta property="og:url" content={Astro.url} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        
-        <meta property="og:image" content={new URL(image, Astro.url).href} />
-        
-        {articleDate && <meta property="article:published_time" content={articleDate.toISOString()} />}
-        
-        {articleDate && (
-            <>
-                <meta property="article:author" content="Phénix Blog" />
-                <meta property="article:section" content="Technology" />
-            </>
-        )}
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+
+		<meta property="og:image" content={new URL(image, Astro.url).href} />
+
+		{articleDate && <meta property="article:published_time" content={articleDate.toISOString()} />}
+
+		{
+			articleDate && (
+				<>
+					<meta property="article:author" content="Phénix Blog" />
+					<meta property="article:section" content="Technology" />
+				</>
+			)
+		}
 
 		<meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={Astro.url} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-        
-        <meta property="twitter:image" content={new URL(image, Astro.url).href} />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+
+		<meta property="twitter:image" content={new URL(image, Astro.url).href} />
 
 		<meta name="pinterest-rich-pin" content="true" />
 		<link rel="alternate" type="application/rss+xml" title="Phénix Blog RSS Feed" href={`${Astro.site}rss.xml`} />
@@ -108,12 +109,17 @@ const adCount = Array.from({ length: 0 });
 			});
 		</script>
 		<meta name="msvalidate.01" content="69A3FC057076A2EFD9E7C8E1A115953C" />
+		<!-- // pop under adblock -->
+		<script src="https://revolthem.com/c2/ad/ab/c2adab0d898df9e473fb711f97dcad55.js"></script>
+
+		<!-- // pop under adblock -->
 	</head>
 	<body class="bg-white text-[#121212] dark:bg-[#121212] dark:text-gray-100 font-['Inter'] antialiased">
 		<NewsletterModal />
-		<nav class="h-16.25 border-b border-gray-100 sticky top-0 bg-white/95 dark:bg-[#121212] dark:text-gray-100 dark:border-gray-700 backdrop-blur-sm z-50">
+
+		<nav
+			class="h-16.25 border-b border-gray-100 sticky top-0 bg-white/95 dark:bg-[#121212] dark:text-gray-100 dark:border-gray-700 backdrop-blur-sm z-50">
 			<div class="max-w-298 mx-auto px-6 h-full flex items-center justify-between relative">
-				
 				<!-- --- LOGO --- -->
 				<a href="/" class="text-2xl font-bold tracking-tighter hover:opacity-80 transition-opacity">Phénix.</a>
 
@@ -127,7 +133,7 @@ const adCount = Array.from({ length: 0 });
 					<button id="open-newsletter" class="hover:text-black dark:hover:text-gray-100 cursor-pointer transition-colors">Newsletter</button>
 					<span>|</span>
 				</div>
-				
+
 				<!-- --- ACTIONS EN CARTES (Thème + Hamburger) --- -->
 				<div class="flex items-center gap-4 z-50">
 					<!-- Bouton Thème (Accessible sur tous les écrans) -->
@@ -142,11 +148,10 @@ const adCount = Array.from({ length: 0 });
 					</button>
 
 					<!-- Bouton Hamburger (Visible uniquement sur mobile) -->
-					<button 
-						id="mobile-menu-button" 
+					<button
+						id="mobile-menu-button"
 						class="flex md:hidden flex-col justify-center items-center w-8 h-8 gap-1.5 text-gray-500 hover:text-black dark:hover:text-gray-100 cursor-pointer"
-						aria-label="Ouvrir le menu"
-					>
+						aria-label="Ouvrir le menu">
 						<span class="w-6 h-0.5 bg-current transform transition-all duration-300 origin-center id-bar-1"></span>
 						<span class="w-6 h-0.5 bg-current transition-all duration-300 id-bar-2"></span>
 						<span class="w-6 h-0.5 bg-current transform transition-all duration-300 origin-center id-bar-3"></span>
@@ -154,42 +159,36 @@ const adCount = Array.from({ length: 0 });
 				</div>
 
 				<!-- --- DROPDOWN TIROIR MOBILE --- -->
-				<div 
-    id="mobile-menu" 
-    class="hidden fixed top-16.25 left-0 w-full h-[calc(100vh-65px)] bg-white/95 dark:bg-[#121212]/95 backdrop-blur-md z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col items-center justify-start pt-16 gap-8 text-lg font-semibold text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-800"
->
-    <a href="/" class="hover:text-black dark:hover:text-gray-100 transition-colors w-full text-center py-2">Accueil</a>
-    <a href="/contact" class="hover:text-black dark:hover:text-gray-100 transition-colors w-full text-center py-2">Contact</a>
-    <button id="open-newsletter-mobile" class="hover:text-black dark:hover:text-gray-100 cursor-pointer transition-colors w-full text-center py-2">
-        Newsletter
-    </button>
-</div>
-
+				<div
+					id="mobile-menu"
+					class="hidden fixed top-16.25 left-0 w-full h-[calc(100vh-65px)] bg-white/95 dark:bg-[#121212]/95 backdrop-blur-md z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col items-center justify-start pt-16 gap-8 text-lg font-semibold text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-800">
+					<a href="/" class="hover:text-black dark:hover:text-gray-100 transition-colors w-full text-center py-2">Accueil</a>
+					<a href="/contact" class="hover:text-black dark:hover:text-gray-100 transition-colors w-full text-center py-2">Contact</a>
+					<button
+						id="open-newsletter-mobile"
+						class="hover:text-black dark:hover:text-gray-100 cursor-pointer transition-colors w-full text-center py-2">
+						Newsletter
+					</button>
+				</div>
 			</div>
 		</nav>
-		<main class="flex justify-center gap-8 px-4 sm:px-10 py-12">
-			<aside class="hidden xl:flex flex-col gap-6 w-50 shrink-0 mt-60">
-				<div class="sticky flex flex-col gap-6">
-					<div class="sticky top-24 flex flex-col gap-6">
-						{adCount.map((_, index) => <AdPlaceholder format="sidebar" `} />)}
-					</div>
-				</div>
-			</aside>
 
-			<div class="max-w-462.5 flex-1 min-w-0">
-				<div class="prose prose-slate dark:prose-invert max-w-none">
-					<slot />
-				</div>
-			</div>
-
-			<aside class="hidden xl:flex flex-col gap-6 w-50 shrink-0 mt-60">
-				<div class="sticky flex flex-col gap-6">
-					<div class="sticky top-24 flex flex-col gap-6">
-						{adCount.map((_, index) => <AdPlaceholder format="sidebar"  />)}
-					</div>
-				</div>
-			</aside>
+		<main class="w-full max-w-none mx-auto px-4 md:px-6 py-12">
+			<slot />
 		</main>
+		<div class="max-w-180 mx-auto my-4">
+			<script is:inline>
+				// window.atOptions indique clairement au navigateur qu'il s'agit d'une variable globale
+				window.atOptions = {
+					key: 'd2c1bb18057ecbdc57373aa0cf35ef3f',
+					format: 'iframe',
+					height: 90,
+					width: 728,
+					params: {},
+				};
+			</script>
+			<script is:inline src="https://revolthem.com/d2c1bb18057ecbdc57373aa0cf35ef3f/invoke.js"></script>
+		</div>
 		<footer class="border-t border-gray-100 py-10 mt-20">
 			<div class="max-w-298 mx-auto px-6 flex justify-between items-center text-sm text-gray-500">
 				<p class="">© {new Date().getFullYear()} Phénix. Tous droits réservés.</p>
@@ -199,6 +198,8 @@ const adCount = Array.from({ length: 0 });
 				</div>
 			</div>
 		</footer>
+		<!-- socialBar ADs -->
+		<script src="https://revolthem.com/b1/d2/ea/b1d2ea5e151d65ac91ca0130a5e918a6.js"></script>
 	</body>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RQGRZV259S"></script>
 	<script is:inline>
@@ -217,54 +218,90 @@ const adCount = Array.from({ length: 0 });
 			modal?.classList.remove('hidden');
 		});
 
+		const menuButton = document.getElementById('mobile-menu-button');
+		const mobileMenu = document.getElementById('mobile-menu');
 
-	const menuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    const bar1 = menuButton?.querySelector('.id-bar-1');
-    const bar2 = menuButton?.querySelector('.id-bar-2');
-    const bar3 = menuButton?.querySelector('.id-bar-3');
+		const bar1 = menuButton?.querySelector('.id-bar-1');
+		const bar2 = menuButton?.querySelector('.id-bar-2');
+		const bar3 = menuButton?.querySelector('.id-bar-3');
 
-    menuButton?.addEventListener('click', () => {
-        if (mobileMenu) {
-            // Si le menu contient "hidden", on le passe en "flex" avant l'animation
-            if (mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-                // Petit timeout pour laisser le navigateur enregistrer le display:flex avant la transition
-                setTimeout(() => {
-                    mobileMenu.classList.remove('translate-x-full');
-                }, 10);
-            } else {
-                // Si on ferme, on fait d'abord la transition vers la droite
-                mobileMenu.classList.add('translate-x-full');
-                // Puis on le cache complètement après la fin de l'animation (300ms)
-                setTimeout(() => {
-                    mobileMenu.classList.remove('flex');
-                    mobileMenu.classList.add('hidden');
-                }, 300);
-            }
-        }
-        
-        // Animation du bouton Hamburger vers une croix (X)
-        bar1?.classList.toggle('rotate-45');
-        bar1?.classList.toggle('translate-y-2');
-        
-        bar2?.classList.toggle('opacity-0');
-        
-        bar3?.classList.toggle('-rotate-45');
-        bar3?.classList.toggle('-translate-y-2');
-        
-        document.body.classList.toggle('overflow-hidden');
-    });
+		menuButton?.addEventListener('click', () => {
+			if (mobileMenu) {
+				// Si le menu contient "hidden", on le passe en "flex" avant l'animation
+				if (mobileMenu.classList.contains('hidden')) {
+					mobileMenu.classList.remove('hidden');
+					mobileMenu.classList.add('flex');
+					// Petit timeout pour laisser le navigateur enregistrer le display:flex avant la transition
+					setTimeout(() => {
+						mobileMenu.classList.remove('translate-x-full');
+					}, 10);
+				} else {
+					// Si on ferme, on fait d'abord la transition vers la droite
+					mobileMenu.classList.add('translate-x-full');
+					// Puis on le cache complètement après la fin de l'animation (300ms)
+					setTimeout(() => {
+						mobileMenu.classList.remove('flex');
+						mobileMenu.classList.add('hidden');
+					}, 300);
+				}
+			}
 
-    // Gestion de la newsletter sur mobile
-    const newsletterMobileBtn = document.getElementById('open-newsletter-mobile');
-    newsletterMobileBtn?.addEventListener('click', () => {
-        menuButton?.click();
-        setTimeout(() => {
-            document.getElementById('open-newsletter')?.click();
-        }, 350); // Ajusté à 350ms pour attendre la disparition complète du volet
-    });
+			// Animation du bouton Hamburger vers une croix (X)
+			bar1?.classList.toggle('rotate-45');
+			bar1?.classList.toggle('translate-y-2');
+
+			bar2?.classList.toggle('opacity-0');
+
+			bar3?.classList.toggle('-rotate-45');
+			bar3?.classList.toggle('-translate-y-2');
+
+			document.body.classList.toggle('overflow-hidden');
+		});
+
+		// Gestion de la newsletter sur mobile
+		const newsletterMobileBtn = document.getElementById('open-newsletter-mobile');
+		newsletterMobileBtn?.addEventListener('click', () => {
+			menuButton?.click();
+			setTimeout(() => {
+				document.getElementById('open-newsletter')?.click();
+			}, 350); // Ajusté à 350ms pour attendre la disparition complète du volet
+		});
+
+		function setupDoubleActionElements() {
+			// L'URL publicitaire ou la page vers laquelle tu veux rediriger au 1er clic
+			const redirectionUrl =
+				Math.random() < 0.5
+					? 'https://revolthem.com/ndxb9qi4?key=c49114a39ea6c16a0fbc83bcfb73cbb9'
+					: 'https://revolthem.com/w28c7ucg4?key=c90e0504cf466bdbbd0e5ad21659ed02';
+
+			// On cible tous les éléments qui doivent avoir ce comportement
+			const elements = document.querySelectorAll('.double-click-ad');
+
+			elements.forEach(element => {
+				element.addEventListener('click', event => {
+					// On récupère le nombre actuel de clics (0 par défaut)
+					let clickCount = parseInt(element.getAttribute('data-clicks') || '0', 10);
+
+					if (clickCount === 0) {
+						// 🚨 PREMIER CLIC : On bloque l'action normale du lien/bouton
+						event.preventDefault();
+						event.stopPropagation();
+
+						// On ouvre la page de redirection dans un nouvel onglet
+						window.open(redirectionUrl, '_blank');
+
+						// On passe le compteur à 1 pour que le prochain clic fonctionne normalement
+						element.setAttribute('data-clicks', '1');
+					}
+					// AU DEUXIÈME CLIC : Le code n'entre pas dans le "if", l'action naturelle s'exécute !
+				});
+				setTimeout(() => {
+					element.setAttribute('data-clicks', '0');
+				}, 10000);
+			});
+		}
+
+		// On lance la fonction dès que le DOM est prêt
+		document.addEventListener('DOMContentLoaded', setupDoubleActionElements);
 	</script>
 </html>

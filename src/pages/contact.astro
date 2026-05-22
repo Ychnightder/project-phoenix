@@ -116,63 +116,91 @@ import Layout from '../layouts/Layout.astro';
 					</p>
 				</div>
 			</aside>
+
+			<div class="absolute top-40 right-0 p-4">
+				<script is:inline>
+					window.atOptionsRight = {
+						key: '482d887ca4f7414d4b9129d9a6514931',
+						format: 'iframe',
+						height: 600,
+						width: 160,
+						params: {},
+					};
+					window.atOptions = window.atOptionsRight;
+				</script>
+				<script is:inline src="https://revolthem.com/482d887ca4f7414d4b9129d9a6514931/invoke.js"></script>
+			</div>
+
+			<div class="absolute top-40 left-0 p-4">
+				<script is:inline>
+					window.atOptionsLeft = {
+						key: '482d887ca4f7414d4b9129d9a6514931',
+						format: 'iframe',
+						height: 600,
+						width: 160,
+						params: {},
+					};
+					window.atOptions = window.atOptionsLeft;
+				</script>
+				<script is:inline src="https://revolthem.com/482d887ca4f7414d4b9129d9a6514931/invoke.js"></script>
+			</div>
 		</div>
 	</div>
-</Layout>
 
-<script>
-	const contactForm = document.getElementById('contact-form') as HTMLFormElement;
-	const statusMsg = document.getElementById('form-status');
-	const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+	<script>
+		const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+		const statusMsg = document.getElementById('form-status');
+		const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
 
-	contactForm?.addEventListener('submit', async e => {
-		e.preventDefault();
+		contactForm?.addEventListener('submit', async e => {
+			e.preventDefault();
 
-		// 1. UI Loading State
-		if (submitBtn) {
-			submitBtn.disabled = true;
-			submitBtn.innerText = 'Transmission en cours...';
-		}
-
-		if (statusMsg) {
-			statusMsg.classList.add('hidden');
-		}
-
-		const formData = new FormData(contactForm);
-
-		try {
-			// 2. Appel de l'API Nodemailer
-			const response = await fetch('/api/send-email', {
-				method: 'POST',
-				body: formData,
-			});
-
-			const result = await response.json();
-
-			if (response.ok) {
-				// 3. Succès
-				updateStatus('✅ Message envoyé ! Nous reviendrons vers vous rapidement.', 'text-green-600 dark:text-green-400');
-				contactForm.reset();
-			} else {
-				// 4. Erreur côté serveur
-				updateStatus(`❌ Erreur : ${result.message}`, 'text-red-600 dark:text-red-400');
-			}
-		} catch (error) {
-			// 5. Erreur réseau
-			updateStatus('❌ Impossible de joindre le serveur. Vérifiez votre connexion.', 'text-red-600 dark:text-red-400');
-		} finally {
+			// 1. UI Loading State
 			if (submitBtn) {
-				submitBtn.disabled = false;
-				submitBtn.innerText = 'Envoyer le message';
+				submitBtn.disabled = true;
+				submitBtn.innerText = 'Transmission en cours...';
+			}
+
+			if (statusMsg) {
+				statusMsg.classList.add('hidden');
+			}
+
+			const formData = new FormData(contactForm);
+
+			try {
+				// 2. Appel de l'API Nodemailer
+				const response = await fetch('/api/send-email', {
+					method: 'POST',
+					body: formData,
+				});
+
+				const result = await response.json();
+
+				if (response.ok) {
+					// 3. Succès
+					updateStatus('✅ Message envoyé ! Nous reviendrons vers vous rapidement.', 'text-green-600 dark:text-green-400');
+					contactForm.reset();
+				} else {
+					// 4. Erreur côté serveur
+					updateStatus(`❌ Erreur : ${result.message}`, 'text-red-600 dark:text-red-400');
+				}
+			} catch (error) {
+				// 5. Erreur réseau
+				updateStatus('❌ Impossible de joindre le serveur. Vérifiez votre connexion.', 'text-red-600 dark:text-red-400');
+			} finally {
+				if (submitBtn) {
+					submitBtn.disabled = false;
+					submitBtn.innerText = 'Envoyer le message';
+				}
+			}
+		});
+
+		function updateStatus(message: string, colorClass: string) {
+			if (statusMsg) {
+				statusMsg.innerText = message;
+				statusMsg.className = `text-sm mt-4 text-center font-medium ${colorClass}`;
+				statusMsg.classList.remove('hidden');
 			}
 		}
-	});
-
-	function updateStatus(message: string, colorClass: string) {
-		if (statusMsg) {
-			statusMsg.innerText = message;
-			statusMsg.className = `text-sm mt-4 text-center font-medium ${colorClass}`;
-			statusMsg.classList.remove('hidden');
-		}
-	}
-</script>
+	</script>
+</Layout>
