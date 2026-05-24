@@ -6,8 +6,28 @@ import { topics } from '../config';
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// On ajoute "Tous" pour pouvoir réinitialiser le filtre
-const categories = ['Tous', ...topics];
+// 1. On trie les articles du plus récent au plus ancien
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// 2. On récupère la catégorie du tout dernier article
+const mostRecentCategory = sortedPosts[0]?.data.category;
+
+// 3. On filtre ta liste de topics globale pour enlever la plus récente (si elle y est)
+// pour éviter qu'elle n'apparaisse deux fois
+const cleanTopics = topics.filter(topic => topic !== mostRecentCategory);
+
+// 4. On assemble le tout : "Tous" -> La plus récente -> Tout le reste de tes thèmes
+const categories = ['Tous'];
+
+if (mostRecentCategory) {
+    categories.push(mostRecentCategory);
+}
+
+categories.push(...cleanTopics);
+
+
+// // On ajoute "Tous" pour pouvoir réinitialiser le filtre
+// const categories = ['Tous', ...topics];
 ---
 
 <Layout title="Phéni-x Blog | Explorer les Topics">
@@ -24,12 +44,12 @@ const categories = ['Tous', ...topics];
 				<div id="category-nav" class="flex gap-6 overflow-x-auto no-scrollbar py-4 px-4 pr-20 text-sm text-gray-500 dark:text-gray-400 scroll-smooth">
 					{
 						categories.map((cat, index) => (
-							<button
+							<a href="#"
 								data-category={cat}
 								class={`filter-btn whitespace-nowrap capitalize transition-all duration-200 pb-4 -mb-4.25 border-b-2 font-medium shrink-0 dark:text-gray-400 dark:hover:text-white cursor-pointer
               ${index === 0 ? 'text-black border-black dark:text-white dark:border-white ' : 'border-transparent hover:text-black '}`}>
 								{cat}
-							</button>
+							</a>
 						))
 					}
 				</div>
