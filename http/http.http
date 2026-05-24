@@ -1,0 +1,12 @@
+POST /indexnow HTTP/1.1
+Host: api.indexnow.org
+Content-Type: application/json; charset=utf-8
+
+{
+  "host": "phenix-blog.vercel.app",
+  "key": "eb73de8eb0ac40d79b7d66ca553b5655",
+  "keyLocation": "https://phenix-blog.vercel.app/eb73de8eb0ac40d79b7d66ca553b5655.txt",
+  "urlList": [
+    "https://phenix-blog.vercel.app/"
+  ]
+}
