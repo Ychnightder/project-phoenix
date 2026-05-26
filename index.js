@@ -65,9 +65,11 @@ ${article.body}
 		// --- AJOUT : DÉPLOIEMENT APRÈS LA GÉNÉRATION ---
 		await deploy();
 
-		console.log('📧 Lancement de la diffusion newsletter...');
+		if(Math.random() < 0.5) {
+			console.log('📧 Lancement de la diffusion newsletter...');
 
-		 await phoenixAgent();
+			await phoenixAgent();
+		}
 	} catch (error) {
 		await deploy();
 		console.error('💀 Pipeline crash:', error);
