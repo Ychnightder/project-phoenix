@@ -203,4 +203,5 @@ export const topics = [
 	'Éco-tourisme',
 	'Gastronomie et Arts culinaires',
 	'Jeux de société et Stratégie',
+
 ];
