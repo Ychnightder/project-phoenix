@@ -2,7 +2,7 @@ import { searchNews } from './src/agents/scout.js';
 import { generateArticle } from './src/agents/architect.js';
 import { generateHeroImage } from './src/agents/imager.js';
 import { deploy } from './src/agents/publisher.js';
-import { phoenixAgent } from './src/pages/api/mailer.ts';
+//import { phoenixAgent } from './src/pages/api/mailer.ts';
 import fs from 'fs';
 import path from 'path';
 import { topics } from './src/config.js';
@@ -68,7 +68,7 @@ ${article.body}
 		if(Math.random() < 0.5) {
 			console.log('📧 Lancement de la diffusion newsletter...');
 
-			await phoenixAgent();
+			//await phoenixAgent();
 		}
 	} catch (error) {
 		await deploy();
