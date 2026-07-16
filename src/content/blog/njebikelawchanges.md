@@ -1,0 +1,38 @@
+---
+title: "NJ's e-bike law under scrutiny"
+pubDate: "2026-07-16T17:18:55.512Z"
+description: "Analyse sur NJ's e-bike law under scrutiny"
+category: "Micro-mobilité (Trottinettes, Vélo électrique)"
+heroImage: "https://images.unsplash.com/photo-1620802051782-725fa33db067?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NDUyNzN8MHwxfHNlYXJjaHwxfHxlYmlrZSUyMGxhdyUyMGNoYW5nZXMlMjB0ZWNobm9sb2d5fGVufDB8MHx8fDE3ODQyMjIzMzV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+---
+Les cyclistes sont frustrés et inquiets face à la nouvelle loi sur les vélos électriques au New Jersey, qui vise à réduire les comportements cyclistes dangereux, mais qui, selon les défenseurs, affecte principalement les propriétaires de vélos électriques à basse vitesse. La loi, qui est la plus stricte du pays, exige que tous les cyclistes portent un casque et créé un âge minimum pour conduire à 15 ans. Cependant, les critiques affirment que cette loi va trop loin en réglementant les cyclistes à basse vitesse et ne fait pas suffisamment pour freiner les cyclistes à haute vitesse. Les bureaux du président du Sénat, Nicholas Scutari, et du président de l'Assemblée, Craig Coughlin, n'ont pas répondu aux emails avec des questions de base sur la façon d'interpréter la nouvelle loi. La Commission des véhicules à moteur a également lutté pour interpréter la nouvelle loi avec des informations confuses et contradictoires sur son site Web et dans son manuel pour les propriétaires de vélos électriques.
+
+La nouvelle loi a créé deux classes de vélos électriques. Un « vélo électrique à basse vitesse » a une assistance à la pédale d'un moteur qui peut aller jusqu'à 20 mph. Un « vélo à moteur » a quatre définitions possibles, y compris un moteur inférieur à 50 centimètres cubes, et peut voyager jusqu'à 28 miles par heure en utilisant des pédales ou un accélérateur. Les deux classes nécessitent maintenant une licence et une immatriculation, et les vélos à moteur doivent également être assurés.
+
+Les défenseurs affirment que la loi affecte ceux qui ont besoin de vélos électriques pour se déplacer, en particulier les personnes handicapées et les seniors qui bénéficient de l'aide supplémentaire lors de la pédalage. Les cyclistes qui ont acheté des vélos électriques pour se rendre au travail ou à des rendez-vous médicaux peuvent maintenant être confrontés à des amendes et à des pénalités pour non-conformité.
+
+L'histoire des vélos électriques au New Jersey remonte à 2019, lorsque la loi originale a été adoptée. Cependant, avec l'augmentation de la popularité des vélos électriques, les blessures et les décès liés à leur utilisation ont également augmenté. Cela a conduit les législateurs à réviser la loi pour inclure de nouvelles réglementations et exigences pour les cyclistes. La nouvelle loi a été adoptée lors d'une session de lame-duck en décembre dernier et doit entrer en vigueur le 19 juillet. Depuis le 26 juin, lorsque la Commission des véhicules à moteur a commencé à enregistrer les vélos électriques, plus de 4 100 enregistrements de vélos électriques et 250 permis de vélo électrique ont été délivrés.
+
+Les partisans de la loi affirment qu'elle est nécessaire pour protéger les cyclistes et les autres usagers de la route. Cependant, les critiques affirment que la loi va trop loin et pénalise injustement les cyclistes à basse vitesse. Les cyclistes qui ont acheté des vélos électriques pour se déplacer de manière écologique et saine sont maintenant confrontés à des coûts et à des tracas supplémentaires pour se conformer à la loi.
+
+Le contexte historique de la loi sur les vélos électriques au New Jersey est complexe et implique des facteurs tels que la sécurité routière, l'environnement et les besoins des personnes handicapées. La loi a été adoptée pour répondre aux préoccupations concernant les blessures et les décès liés aux vélos électriques, mais elle a également des implications plus larges pour l'industrie des vélos électriques et les consommateurs.
+
+L'analyse technique de la loi sur les vélos électriques au New Jersey révèle des complexités et des contradictions. La loi exige que les cyclistes portent un casque et créé un âge minimum pour conduire à 15 ans, ce qui est une mesure de sécurité raisonnable. Cependant, la loi va également trop loin en réglementant les cyclistes à basse vitesse et en exigeant une licence et une immatriculation pour tous les vélos électriques.
+
+La définition de « vélo électrique à basse vitesse » et de « vélo à moteur » est également floue et peut prêter à confusion. Les cyclistes qui ont acheté des vélos électriques pour se déplacer de manière écologique et saine peuvent ne pas être conscients des nouvelles exigences et peuvent être confrontés à des amendes et à des pénalités pour non-conformité.
+
+De plus, la loi ne fait pas suffisamment pour freiner les cyclistes à haute vitesse, qui sont souvent les principaux responsables des blessures et des décès liés aux vélos électriques. Les cyclistes à haute vitesse peuvent voyager à des vitesses excessives et mettre en danger les autres usagers de la route.
+
+La Commission des véhicules à moteur a également lutté pour interpréter la nouvelle loi et a fourni des informations confuses et contradictoires sur son site Web et dans son manuel pour les propriétaires de vélos électriques. Cela a conduit à la confusion et à la frustration parmi les cyclistes et les propriétaires de vélos électriques.
+
+Les enjeux de la loi sur les vélos électriques au New Jersey sont importants et ont des implications pour l'industrie des vélos électriques et les consommateurs. La loi peut avoir un impact négatif sur les ventes de vélos électriques et sur l'industrie dans son ensemble. Les cyclistes qui ont acheté des vélos électriques pour se déplacer de manière écologique et saine peuvent être dégoûtés par les coûts et les tracas supplémentaires pour se conformer à la loi.
+
+De plus, la loi peut avoir un impact sur les personnes handicapées et les seniors qui bénéficient de l'aide supplémentaire lors de la pédalage. Les cyclistes qui ont acheté des vélos électriques pour se rendre au travail ou à des rendez-vous médicaux peuvent maintenant être confrontés à des amendes et à des pénalités pour non-conformité.
+
+Les enjeux de la loi sur les vélos électriques au New Jersey sont également liés à la sécurité routière et à l'environnement. La loi peut avoir un impact sur la réduction des émissions de gaz à effet de serre et sur la promotion de modes de transport plus écologiques. Cependant, la loi doit également être équilibrée pour prendre en compte les besoins des cyclistes et des propriétaires de vélos électriques.
+
+En conclusion, la loi sur les vélos électriques au New Jersey est complexe et a des implications pour l'industrie des vélos électriques et les consommateurs. La loi exige que les cyclistes portent un casque et créé un âge minimum pour conduire à 15 ans, ce qui est une mesure de sécurité raisonnable. Cependant, la loi va également trop loin en réglementant les cyclistes à basse vitesse et en exigeant une licence et une immatriculation pour tous les vélos électriques.
+
+Il est important de trouver un équilibre entre la sécurité routière et les besoins des cyclistes et des propriétaires de vélos électriques. La loi doit être révisée pour prendre en compte les complexités et les contradictions de la loi actuelle. Les cyclistes et les propriétaires de vélos électriques doivent être conscients des nouvelles exigences et doivent prendre des mesures pour se conformer à la loi.
+
+*Source: https://www.northjersey.com/story/news/transportation/2026/07/16/nj-new-e-bike-law-cyclists-upset-confused/90787801007/*
